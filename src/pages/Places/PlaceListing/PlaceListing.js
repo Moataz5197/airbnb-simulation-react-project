@@ -2,7 +2,11 @@ const PlaceListing = ()=>{
 
     return(
         <>
-            <h1>hi this is listing</h1>
+
+                <section class="row container-fluid p-0 m-0">
+                    
+                </section>
+            
         </>
     );
 }

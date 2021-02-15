@@ -7,6 +7,7 @@ import { Route, Switch } from "react-router-dom";
 /*const Home = React.lazy(() => import("./pages/Home/index"));*/
 
 const PlaceListing = React.lazy(() => import("./pages/Places/PlaceListing/PlaceListing"));
+const Eror404 = React.lazy(() => import("./pages/Eror404/Eror404"));
 
 export default function Routes() {
   return (
@@ -14,6 +15,8 @@ export default function Routes() {
       <Switch>
         {/* <Route path="/" exact component={Home} /> */}
         <Route path="/placelisting" exact component={PlaceListing}/>
+        
+        <Route path="*" component={Eror404}/>
       </Switch>
     </Suspense>
   );
