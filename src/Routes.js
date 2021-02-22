@@ -1,5 +1,6 @@
 import React, { Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
+import Product from "./components/productList/product";
 
 
 
@@ -13,7 +14,7 @@ export default function Routes() {
   return (
     <Suspense fallback="loading...">
       <Switch>
-        {/* <Route path="/" exact component={Home} /> */}
+        <Route path="/product" exact component={Product} />
         <Route path="/placelisting" exact component={PlaceListing}/>
         
         <Route path="*" component={Eror404}/>
