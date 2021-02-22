@@ -1,0 +1,104 @@
+nav {
+    background-color: rgb(218, 218, 218);
+    height: 80px;
+}
+
+hr {
+    background-color: rgb(224, 224, 224);
+}
+/* Title, subtitle and host image */
+.main {
+    padding-left: 0;
+    margin-top: 50px;
+}
+.placeInfo {
+    max-width: 60%;
+    margin-left: 0;
+    
+}
+.placeInfo h2 {
+    font-size: 22px;
+    font-weight: 500;
+}
+.summarySpan {
+    font-size: 16px;
+    font-weight: 100;
+}
+.hostImg {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    border-radius: 50%;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+/* popular amenities */
+.placeFeature {
+    margin-bottom: 25px;
+    margin-top: 25px;
+}
+.placeFeature h3{
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 0;
+}
+.placeFeature .FeatureSubtitle {
+    color: rgb(113, 113, 113);
+    font-size: 14px;
+    font-weight: 300;
+}
+.placeFeature .icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+/* description */
+.description {
+    color: rgb(34, 34, 34);
+    font-size: 16px;
+    font-weight: 300;
+    padding: 25px 0;
+}
+
+/* amenities */
+.notIncluded {
+    text-decoration: line-through;
+}
+.amenities {
+    padding: 30px 0;
+}
+.amenities h3 {
+    color: rgb(34, 34, 34);
+    font-size: 22px;
+    font-weight: 500;
+}
+.amenities .icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+.amenities span {
+    color: rgb(34, 34, 34);
+    font-size: 16px;
+    font-weight: 300;
+}
+.amenityItem {
+    margin: 15px 0;
+}
+.amenities .button {
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
+
+
+/* /////////////////////// */
+.myDiv {
+    background-color: crimson;
+    width: 375px;
+    height: 276px;
+    position: sticky;
+    top: 100px;
+}

@@ -7,6 +7,7 @@ import './fonts/AirbnbCerealLight.ttf';
 import './fonts/AirbnbCerealBook.ttf';
 import './fonts/AirbnbCerealMedium.ttf';
 import './fonts/AirbnbCerealBold.ttf';
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
