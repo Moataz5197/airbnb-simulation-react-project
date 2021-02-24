@@ -10,6 +10,12 @@ import Product from "./components/productList/product";
 const PlaceListing = React.lazy(() => import("./pages/Places/PlaceListing/PlaceListing"));
 const PlaceDetails = React.lazy(() => import("./pages/Places/PlaceDetails/PlaceDetails"));
 const Eror404 = React.lazy(() => import("./pages/Eror404/Eror404"));
+const Login = React.lazy(() => import("./pages/Authentication/Login/login"));
+const AlreadyLogin = React.lazy(() => import("./pages/Authentication/Login/alreadyLogin"));
+const SignUp = React.lazy(() => import("./pages/Authentication/Register/SignUp"));
+const Register = React.lazy(() => import("./pages/Authentication/Register/Register"));
+
+
 
 export default function Routes() {
   return (
@@ -20,6 +26,11 @@ export default function Routes() {
         <Route path="/placelisting" exact component={PlaceListing}/>
         {/* <Route path="/" exact component={Home} /> */}
         <Route path="/placedetails" exact component={PlaceDetails} />
+        <Route path="/login" exact component={Login}/>
+        <Route path="/alreadyLogin" exact component={AlreadyLogin}/>
+        <Route path="/SignUp" exact component={SignUp}/>
+        <Route path="/Register" exact component={Register}/>
+
         <Route path="*" component={Eror404} />
       </Switch>
     </Suspense>
