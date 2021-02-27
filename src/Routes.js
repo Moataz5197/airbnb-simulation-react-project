@@ -14,7 +14,8 @@ const Login = React.lazy(() => import("./pages/Authentication/Login/login"));
 const AlreadyLogin = React.lazy(() => import("./pages/Authentication/Login/alreadyLogin"));
 const SignUp = React.lazy(() => import("./pages/Authentication/Register/SignUp"));
 const Register = React.lazy(() => import("./pages/Authentication/Register/Register"));
-
+const Overview = React.lazy(()=>import("./pages/Host/PlaceHosting/PlaceHostingOverview/Overview"))
+const HostingForm = React.lazy(()=>import("./pages/Host/PlaceHosting/PlaceHostingForm/Form"))
 
 
 export default function Routes() {
@@ -30,6 +31,8 @@ export default function Routes() {
         <Route path="/alreadyLogin" exact component={AlreadyLogin}/>
         <Route path="/SignUp" exact component={SignUp}/>
         <Route path="/Register" exact component={Register}/>
+        <Route path="/placeHosting/overview" component={Overview}/>
+        <Route path="/placeHosting/Hosting" component={HostingForm}/>
 
         <Route path="*" component={Eror404} />
       </Switch>
