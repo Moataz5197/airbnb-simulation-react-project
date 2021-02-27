@@ -1,6 +1,7 @@
 import React from "react";
 import "./Form.css";
 import { Col, Row, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { addPlaceAxiosInstance } from "../../../../axiosInstance";
 
 export default function HostingForm(){
     const[formData,setFormData]=React.useState({
@@ -19,7 +20,7 @@ export default function HostingForm(){
         total_bedrooms: 0,
         total_bathrooms: 0,
         num_beds: 0,
-        title: "mklvdsm",
+        title: "",
         summary: "",
         address: {
             country: "",
@@ -101,7 +102,12 @@ export default function HostingForm(){
                 [e.target.name]:e.target.value
             })
         }
-        console.log(formData)
+    }
+
+    const addPlace=()=>{
+        addPlaceAxiosInstance.post("",formData)
+        .then((response)=>console.log(response))
+        .catch((err)=>console.log(err))
     }
 
     return(
@@ -113,12 +119,10 @@ export default function HostingForm(){
                     <Label for="title">Place title</Label>
                     <Input value={formData.title} type="text" name="title" onChange={(e)=>handleFormData(e)}/>
                 </FormGroup>
-                <br/>
                 <FormGroup>
                     <Label for="summary">Place description</Label>
                     <Input value={formData.summary} type="textarea" name="summary" placeholder="Describe your place" onChange={(e)=>handleFormData(e)}/>
                 </FormGroup>
-                <br/>
                 <Row form>
                     <Col md={6}>
                     <FormGroup>
@@ -145,7 +149,6 @@ export default function HostingForm(){
                     </FormGroup>
                     </Col>
                 </Row>
-                <br/>
                 <Row form>
                     <Col md={3}>
                     <FormGroup>
@@ -172,7 +175,6 @@ export default function HostingForm(){
                     </FormGroup>
                     </Col>
                 </Row>
-                <br/>
                 <Row>
               <Col md={6}>
               <FormGroup tag="fieldset" onChange={(e)=>handleFormData(e,"place_type",()=>{
@@ -388,8 +390,7 @@ export default function HostingForm(){
                     </FormGroup>
                 </Col>
             </Row>
-            <br/>
-
+              <br/>
             <FormGroup row>
                 <Label for="imgs" sm={2}>Place images</Label>
                 <Col sm={10}>
@@ -399,8 +400,6 @@ export default function HostingForm(){
                 </FormText>
                 </Col>
             </FormGroup>
-
-            <br/>
             <Row>
                 <Col md={5}>
                     <FormGroup>
@@ -409,15 +408,20 @@ export default function HostingForm(){
                     </FormGroup>
                 </Col>
             </Row>
-            <br/>
             <FormGroup check>
                 <Label check>
-                <Input name="cancellation_option" value={formData.cancellation_option} type="checkbox"/>{' '}
+                <Input name="cancellation_option" value={formData.cancellation_option} 
+                onChange={()=>{
+                        setFormData({
+                            ...formData,
+                            cancellation_option:!formData.cancellation_option
+                        })
+                }} type="checkbox"/>{' '}
                     User can cancel the reservation
                 </Label>
             </FormGroup>
             <br/>
-             <Button onClick={()=>console.log(formData)}>Host your place</Button>
+             <Button onClick={addPlace}>Host your place</Button>
             </Form>
         </div>
         </div>
