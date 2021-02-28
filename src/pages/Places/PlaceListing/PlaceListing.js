@@ -7,7 +7,7 @@ const PlaceListing = ()=>{
     const num = 15;
     const items = [];
     for(let i = 0 ; i < num ; i++){
-        items.push(element)
+        items.push(element);
     }
 
     return(
