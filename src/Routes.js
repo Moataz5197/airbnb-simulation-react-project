@@ -1,5 +1,6 @@
 import React, { Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
+import Nav from "./components/Nav/nav";
 import Product from "./components/productList/product";
 
 
@@ -20,7 +21,9 @@ export default function Routes() {
         <Route path="/placelisting" exact component={PlaceListing}/>
         {/* <Route path="/" exact component={Home} /> */}
         <Route path="/placedetails" exact component={PlaceDetails} />
+        <Route path="/x" component={Nav} />
         <Route path="*" component={Eror404} />
+        
       </Switch>
     </Suspense>
   );
