@@ -4,10 +4,11 @@ import { BrowserRouter as Router} from "react-router-dom";
 function App() {
   return (
     <Router>
-    <>
-      <h1 className="text-center">HelloWorld</h1>
-    </>
-    <Routes/>
+      {/* <ModalExample/> */}
+      {/* <Profile/> */}
+      <Routes/>
+      {/* <Routes/> */}
+      {/* <Footer/> */}
     </Router>
   );
 }
