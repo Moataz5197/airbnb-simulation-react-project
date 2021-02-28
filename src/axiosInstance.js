@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const axiosInstance = axios.create({
+export const citiesAxiosInstance = axios.create({
   baseURL: "https://wft-geo-db.p.rapidapi.com/v1/geo/locations",
   // headers: {
     
@@ -8,7 +8,7 @@ export const axiosInstance = axios.create({
 });
 
 // Add a request interceptor
-axiosInstance.interceptors.request.use(
+citiesAxiosInstance.interceptors.request.use(
   function (config) {
     // Do something before request is sent
     // show loader
@@ -21,7 +21,7 @@ axiosInstance.interceptors.request.use(
 );
 
 // Add a response interceptor
-axiosInstance.interceptors.response.use(function (response) {
+citiesAxiosInstance.interceptors.response.use(function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     // hide loader
@@ -35,7 +35,7 @@ axiosInstance.interceptors.response.use(function (response) {
   });
 
 
-  export const axiosInstance1 = axios.create({
+  export const userAxiosInstance = axios.create({
   baseURL: "http://localhost:4000/users",
   headers: {
     
@@ -46,7 +46,7 @@ axiosInstance.interceptors.response.use(function (response) {
 });
 
 // Add a request interceptor
-axiosInstance1.interceptors.request.use(
+userAxiosInstance.interceptors.request.use(
   function (config) {
     // Do something before request is sent
     // show loader
@@ -59,7 +59,7 @@ axiosInstance1.interceptors.request.use(
 );
 
 // Add a response interceptor
-axiosInstance1.interceptors.response.use(function (response) {
+userAxiosInstance.interceptors.response.use(function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     // hide loader

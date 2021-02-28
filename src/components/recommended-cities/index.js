@@ -1,6 +1,6 @@
 import { useEffect} from 'react';
 
-import {axiosInstance} from '../../axiosInstance'
+import {citiesAxiosInstance} from '../../axiosInstance'
 import React from 'react'
 
 let counter=0;
@@ -30,7 +30,7 @@ const RecommendedCities = () => {
   }
   
   const getCitiesAroundMe=()=>{
-    axiosInstance.get(`/${location.lat?location.lat:32}+${location.long?location.long:30}/nearbyCities`,{
+    citiesAxiosInstance.get(`/${location.lat?location.lat:32}+${location.long?location.long:30}/nearbyCities`,{
       headers: {
         'x-rapidapi-key': '001c15ebe7msh77c9c616748c030p1718f6jsncb3d57f70b0b',
         'x-rapidapi-host': 'wft-geo-db.p.rapidapi.com'

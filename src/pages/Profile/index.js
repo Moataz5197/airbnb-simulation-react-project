@@ -1,6 +1,6 @@
 import { Button, Container } from "reactstrap";
 import "./styles.css";
-import { axiosInstance1 } from "../../axiosInstance";
+import { userAxiosInstance } from "../../axiosInstance";
 import React, { useEffect, useState } from "react";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Input } from "reactstrap";
 
@@ -17,8 +17,8 @@ const Profile = () => {
   });
 
   useEffect(() => {
-    // axiosInstance1.get("/me")
-    axiosInstance1.get("/602d5964fa1345197c1a7f70")
+    // userAxiosInstance.get("/me")
+    userAxiosInstance.get("/602d5964fa1345197c1a7f70")
     .then(function(response){
       // console.log(response)
       setObj(response.data)
@@ -30,7 +30,7 @@ const Profile = () => {
   }, []);
 
   const setDB = () => {
-    axiosInstance1.put(`/edit/${obj._id}`,formData)
+    userAxiosInstance.put(`/edit/${obj._id}`,formData)
     .then(function(response){
       setObj(response.data);
     })
