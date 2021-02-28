@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 export const citiesAxiosInstance = axios.create({
   baseURL: "https://wft-geo-db.p.rapidapi.com/v1/geo/locations",
   // headers: {

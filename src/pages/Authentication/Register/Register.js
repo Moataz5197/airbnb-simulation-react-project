@@ -3,14 +3,17 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import "./Register.css";
+import { axiosInstance } from "../../../axiosInstance";
 
 const schema = yup.object().shape({
-  Name: yup.string().required("please enter your name!"),
+  fname: yup.string().required(),
+  lname: yup.string().required("Please enter your name!"),
+
   birthday: yup
     .string()
     .matches(
       /^\d{2}\/\d{2}\/\d{4}$/,
-      "please enter your date of birth!"
+      "Please enter your date of birth!"
     )
     .required(),
   email: yup
@@ -19,18 +22,29 @@ const schema = yup.object().shape({
     // .typeError()
     .matches(
       /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/,
-      "please enter your email!"
+      "Please enter your email!"
     )
     .required(),
   password: yup
     .string()
-    .min(8, "password must be more than 8 characters")
-    .matches(/[a-zA-Z]/, "password must contain upper and lower cases")
+    .min(8, "Password must be more than 8 characters")
+    .matches(/[a-zA-Z]/, "Password must contain upper and lower cases")
     .required(),
 });
 
 const onSubmit = (res) => {
   console.log(res);
+
+  // axiosInstance.get("/")
+  //   .then(function(response){​​​​​​​
+  //     console.log(response)
+    
+  //   }​​​​​​​)
+  //   .catch(function(err){
+  //     ​​​​​​​
+  //     console.log(err);
+  //   }​​​​​​​)
+    
   // API call
 };
 
@@ -56,21 +70,24 @@ const Register = () => {
               placeholder="First name"
               className="form-control form1"
               ref={register}
-              name="Name"
+              name="fname"
             />
           </div>
+
+          {/* <h6 className="text-danger"> {errors.fname?.message}</h6> */}
+
 
           <div className="form-outline mb-4">
             <input
               type="text"
               placeholder="Last name"
               className="form-control form2"
-              name="lastName"
+              name="lname"
               ref={register}
             />
           </div>
 
-          <h6 className="text-danger"> {errors.Name?.message}</h6>
+          <h6 className="text-danger"> {errors.lname?.message}</h6>
 
           <h6>Make sure it matches the name on your government ID.</h6>
           <div className="form-outline mb-4">
