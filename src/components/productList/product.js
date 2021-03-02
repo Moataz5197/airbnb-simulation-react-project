@@ -13,9 +13,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
 
-const Product = ()=>{
+const Product = (props)=>{
 
-    
+console.log(props)
 
 const element = <FontAwesomeIcon icon={faHeart} />
     

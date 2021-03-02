@@ -7,6 +7,12 @@ export const citiesAxiosInstance = axios.create({
     
   // },
 });
+export const axiosInstance = axios.create({
+  baseURL: "",
+  headers: {
+    
+  },});
+
 
 // Add a request interceptor
 citiesAxiosInstance.interceptors.request.use(
@@ -102,3 +108,10 @@ userAxiosInstance.interceptors.response.use(function (response) {
     // Do something with response error
     return Promise.reject(error);
   });
+
+export const PlacesAxiosInstance = axios.create({
+  baseURL:"http://localhost:4000/places",
+  headers:{
+    
+  }
+})
