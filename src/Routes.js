@@ -18,7 +18,7 @@ const SignUp = React.lazy(() => import("./pages/Authentication/Register/SignUp")
 const Register = React.lazy(() => import("./pages/Authentication/Register/Register"));
 const Overview = React.lazy(()=>import("./pages/Host/PlaceHosting/PlaceHostingOverview/Overview"))
 const HostingForm = React.lazy(()=>import("./pages/Host/PlaceHosting/PlaceHostingForm/Form"))
-
+const ConfirmReservation = React.lazy(() => import("./components/placeDetails/confirmReservation"));
 
 export default function Routes() {
   return (
@@ -36,7 +36,7 @@ export default function Routes() {
         <Route path="/Register" exact component={Register}/>
         <Route path="/placeHosting/overview" component={Overview}/>
         <Route path="/placeHosting/Hosting" component={HostingForm}/>
-    
+        <Route path="/placedetails/confirm/reservation" exact component={ConfirmReservation} />
 
         <Route path="*" component={Eror404} />
         
