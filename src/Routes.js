@@ -11,6 +11,8 @@ const Profile = React.lazy(() => import("./pages/Profile/index"));
 
 const PlaceListing = React.lazy(() => import("./pages/Places/PlaceListing/PlaceListing"));
 const PlaceDetails = React.lazy(() => import("./pages/Places/PlaceDetails/PlaceDetails"));
+const ConfirmReservation = React.lazy(() => import("./components/placeDetails/confirmReservation"));
+
 const Eror404 = React.lazy(() => import("./pages/Eror404/Eror404"));
 const Login = React.lazy(() => import("./pages/Authentication/Login/login"));
 const AlreadyLogin = React.lazy(() => import("./pages/Authentication/Login/alreadyLogin"));
@@ -29,6 +31,7 @@ export default function Routes() {
         <Route path="/placelisting" exact component={PlaceListing}/>
         <Route path="/profile" exact component={Profile}/>
         <Route path="/placedetails" exact component={PlaceDetails} />
+        <Route path="/placedetails/confirm/reservation" exact component={ConfirmReservation} />
         <Route path="/x" component={Nav} />
         <Route path="/login" exact component={Login}/>
         <Route path="/alreadyLogin" exact component={AlreadyLogin}/>
@@ -36,8 +39,6 @@ export default function Routes() {
         <Route path="/Register" exact component={Register}/>
         <Route path="/placeHosting/overview" component={Overview}/>
         <Route path="/placeHosting/Hosting" component={HostingForm}/>
-    
-
         <Route path="*" component={Eror404} />
         
       </Switch>

@@ -14,4 +14,4 @@ export default function Title(props){
         <span className="address">{props.data.address}</span>
       </div>
     );
-}
+} 
