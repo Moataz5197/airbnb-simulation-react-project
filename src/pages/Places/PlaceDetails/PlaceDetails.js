@@ -405,6 +405,15 @@ export default function PlaceDetails() {
                 </div>
               </div>
 
+
+                <div className="amenityItem">
+                  <img className="icon" src={poolPng} />
+                  <span
+                    className={amenities.facilities.pool ? "" : "notIncluded"}
+                  >
+                    Pool
+                  </span>
+
               <div className="reservationCard container">
                 <div className="resCardHeader d-flex justify-content-between">
                   <div>
@@ -416,6 +425,7 @@ export default function PlaceDetails() {
                     <span className="rating">4.95</span>
                     <span className="number">(19)</span>
                   </div>
+
                 </div>
 
                 <div className="resCardControls">
