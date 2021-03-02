@@ -219,7 +219,9 @@ export default function PlaceDetails() {
 
                 <div className="amenityItem">
                   <img className="icon" src={poolPng} />
-                  <span className={amenities.facilities.pool ? "" : "notIncluded"}>
+                  <span
+                    className={amenities.facilities.pool ? "" : "notIncluded"}
+                  >
                     Pool
                   </span>
                 </div>

@@ -8,6 +8,13 @@ export const citiesAxiosInstance = axios.create({
   // },
 });
 
+export const axiosInstance = axios.create({
+  baseURL: "https://wft-geo-db.p.rapidapi.com/v1/geo/locations",
+  // headers: {
+    
+  // },
+});
+
 // Add a request interceptor
 citiesAxiosInstance.interceptors.request.use(
   function (config) {

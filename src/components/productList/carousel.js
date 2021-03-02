@@ -1,6 +1,7 @@
 import {UncontrolledCarousel} from "reactstrap";
 
 
+
 const Carousel =()=>{
 
     const items = [
@@ -26,9 +27,10 @@ const Carousel =()=>{
           key: '3'
         }
       ];
+
     return(
         <>
-            <UncontrolledCarousel items={items}/>
+            <UncontrolledCarousel  items={items}  />
         </>
     );
 }

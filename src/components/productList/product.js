@@ -1,59 +1,65 @@
 import {
-    Card,
-    CardText,
-    CardBody,
-    CardTitle,
-    CardSubtitle,
-    Button,
-    Col,
-    Row,
-    } from "reactstrap";
+  CardText,
+  Col,
+  Row,
+} from "reactstrap";
 import Carousel from "./carousel";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import Title from "../../components/placeDetails/titleComponent";
+import "./product.css";
 
+const Product = () => {
 
-const Product = ()=>{
-
-    
-
-const element = <FontAwesomeIcon icon={faHeart} />
-    
-
-    
-    return(
-        <>
-        <Row>
-            <Col>
-                <Card>
-                    <Row className="no-gutters">
-                        <Col md="4">
-                            <Carousel/>
-                        </Col>
-                        <Col md="8">
-                            <CardBody>
-                                <CardTitle>Card title</CardTitle>
-                                <CardSubtitle>Card subtitle</CardSubtitle>
-                                <CardText>
-                                    Some quick example text to build on the card title and
-                                    make up the bulk of the card's content.
-                                    {element}
-                                </CardText>
-                                <Button>Button</Button>
-                            </CardBody>
-                        </Col>
-                    </Row>
-                </Card>
-            </Col>
-        </Row>
-        
-
-        </>
-    );
-
-
-}
-
-
+  return (
+    <>
+      <Row>
+        <Col>
+          <div className="cart">
+            <a href="#">
+              <i
+                className="far fa-heart"
+                style={{
+                  color: "black",
+                  fontSize: "20px",
+                  float: "right",
+                  paddingTop: 15,
+                }}
+              />
+            </a>
+            <Row className="no-gutters">
+              <Col md="4">
+                <Carousel />
+              </Col>
+              <Col md="8">
+                <div className="title">
+                  <p>Entire flat in hurghada</p>
+                  <p className="p2">Card subtitle</p>
+                  <hr
+                    style={{
+                      width: 40,
+                      float: "left",
+                      marginBottom: 5,
+                      marginTop: 5,
+                    }}
+                  />
+                  <br />
+                  <CardText>
+                    4 guests · 2 bedrooms · 4 beds · 1 bathroom <br />
+                    wifi . kitchen . washing machine
+                    <Title
+                      data={{
+                        rating: 4.95,
+                        numOfRaters: 19,
+                      }}
+                    />
+                  </CardText>
+                </div>
+              </Col>
+            </Row>
+          </div>
+        </Col>
+      </Row>
+    </>
+  );
+};
 
 export default Product;
