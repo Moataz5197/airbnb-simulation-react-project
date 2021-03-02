@@ -1,19 +1,38 @@
 import Product from "../../../components/productList/product";
 import { Container, Row, Col } from 'reactstrap';
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getPlaces } from "../../../store/actions/places";
 
 const PlaceListing = ()=>{
 
-    const element = <Product/>;
-    const num = 15;
+ 
+    const listNumber = 20;
+
+    
+    const places = useSelector((state)=>state.placesReducer.places);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getPlaces({limit:10,skip:10}));
+      }, []);
+
     const items = [];
-    for(let i = 0 ; i < num ; i++){
+    for(let i = 0 ; i < listNumber ; i++){
+
+        let element = <Product currentPlace = {places[i]} key= {i} currentIndex = {i}/>;
         items.push(element);
-    }
+
+      }
+  
+
+
+    
 
     return(
         <>
 
-                <section class="row container-fluid p-0 m-0">
+                <section className="row container-fluid p-0 m-0">
                     <Col md='7'>
                     <div>
                         <h2>Stays in selected map area</h2>
@@ -74,3 +93,7 @@ const PlaceListing = ()=>{
 }
 
 export default PlaceListing;
+
+
+
+
