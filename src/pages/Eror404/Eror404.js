@@ -13,14 +13,7 @@ const Eror404 = ()=>{
           <h4>Here are some helpful links instead:</h4>
           <ul>
             <li>
-              <Link
-                to={{
-                  pathname: "/placedetails",
-                  state: { id: "603e06aea4bd761c38bd1d56" },
-                }}
-              >
-                Home
-              </Link>
+              <Link>Home</Link>
             </li>
             <li>
               <Link>Search</Link>
