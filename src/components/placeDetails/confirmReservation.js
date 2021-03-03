@@ -6,7 +6,10 @@ export default function ConfirmReservation() {
     const location = useLocation();
 
     useEffect(()=>{
-        if (location.state) console.log(location.state);
+        if (location.state) {
+            console.log(location.state);
+            
+        }
     }, []);
 
     if (location.state)
