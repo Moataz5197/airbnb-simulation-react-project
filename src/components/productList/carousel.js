@@ -2,18 +2,62 @@ import {UncontrolledCarousel} from "reactstrap";
 
 
 
-const Carousel =()=>{
-
-    const items = [
+const Carousel =(props)=>{
+    const {main_img} = props.images;
+    const {other_imgs} = props.images;
+    console.log(other_imgs);
+    let items ;
+    if(other_imgs !== undefined){
+     items = [
         {
-          src: 'https://a0.muscache.com/im/pictures/88fd08c5-0699-4b59-9c68-4ada04aea994.jpg?im_w=960',
+          src: main_img,
           altText: '',
           caption: '',
           header: '',
           key: '1'
         },
         {
-          src: 'https://a0.muscache.com/im/pictures/5b82cbc2-1cb2-4056-afd9-9f6cdd929cf1.jpg?im_w=720',
+          src: other_imgs[0],
+          altText: '',
+          caption: '',
+          header: '',
+          key: '2'
+        },
+        {
+          src: other_imgs[1],
+          altText: '',
+          caption: '',
+          header: '',
+          key: '3'
+        },
+        {
+          src: other_imgs[2],
+          altText: '',
+          caption: '',
+          header: '',
+          key: '4'
+        },
+        {
+          src: other_imgs[3],
+          altText: '',
+          caption: '',
+          header: '',
+          key: '5'
+        }
+      ];
+
+    }
+    else{
+      items = [
+        {
+          src: 'https://a0.muscache.com/im/pictures/1b66fa00-cc31-4976-81dd-9a991a8b3697.jpg?im_w=720',
+          altText: '',
+          caption: '',
+          header: '',
+          key: '1'
+        },
+        {
+          src: 'https://a0.muscache.com/im/pictures/1b66fa00-cc31-4976-81dd-9a991a8b3697.jpg?im_w=720',
           altText: '',
           caption: '',
           header: '',
@@ -25,9 +69,23 @@ const Carousel =()=>{
           caption: '',
           header: '',
           key: '3'
+        },
+        {
+          src: 'https://a0.muscache.com/im/pictures/1b66fa00-cc31-4976-81dd-9a991a8b3697.jpg?im_w=720',
+          altText: '',
+          caption: '',
+          header: '',
+          key: '4'
+        },
+        {
+          src: 'https://a0.muscache.com/im/pictures/1b66fa00-cc31-4976-81dd-9a991a8b3697.jpg?im_w=720',
+          altText: '',
+          caption: '',
+          header: '',
+          key: '5'
         }
-      ];
-
+      ]; 
+    }
     return(
         <>
             <UncontrolledCarousel  items={items}  />
