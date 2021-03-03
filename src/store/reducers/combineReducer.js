@@ -1,7 +1,9 @@
 import { combineReducers } from "redux";
 
 import placesReducer from './placesReducer';
+import profileReducer from './profileReducer';
 
 export default combineReducers({
-  placesReducer
+  places :placesReducer,
+  user : profileReducer,
 });
