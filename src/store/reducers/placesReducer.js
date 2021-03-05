@@ -1,6 +1,6 @@
 import * as TYPES from '../types/places';
 const initialState = {
-
+totalPlaces : 0,
 pageNumber : 0 ,
 places : []
 
@@ -13,9 +13,12 @@ export default (
     case TYPES.GET_PLACES:
       return {
         ...state,
-        places:[...action.payload]
+        totalPlaces: action.payload.totalPlaces,
+        pageNumber : action.payload.pageNumber,
+        places:[...action.payload.places]
         
       };
+    
     default:
       return state;
   }
