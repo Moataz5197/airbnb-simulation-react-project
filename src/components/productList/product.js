@@ -43,7 +43,7 @@ const Product = (props) => {
             </a>
             <Row className="no-gutters">
               <Col md="4">
-                <Carousel  images = {images}/>
+                <Carousel   images = {images}/>
               </Col>
               <Col md="8">
                 <div className="title">

@@ -3,7 +3,10 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import "./Register.css";
-import { axiosInstance } from "../../../axiosInstance";
+import { axiosInstance, userAxiosInstance } from "../../../axiosInstance";
+import { useLocation } from "react-router";
+import { Redirect } from "react-router-dom";
+
 
 const schema = yup.object().shape({
   fname: yup.string().required(),
@@ -35,25 +38,34 @@ const schema = yup.object().shape({
 const onSubmit = (res) => {
   console.log(res);
 
-  // axiosInstance.get("/")
-  //   .then(function(response){​​​​​​​
-  //     console.log(response)
-    
-  //   }​​​​​​​)
-  //   .catch(function(err){
-  //     ​​​​​​​
-  //     console.log(err);
-  //   }​​​​​​​)
-    
-  // API call
+  let data = {fname:res.fname,
+              lname:res.lname,
+              email:res.email,
+              password:res.password,
+              phone_number:"1254478",
+              profile_img:"sasa"
+            }
+
+  userAxiosInstance.post("/signup",data).then(console.log("done")).catch(console.error)
 };
 
 const Register = () => {
+  const location = useLocation();
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
-
+  
+  
+  if(location.state === undefined){
+    return <Redirect to={
+      {
+        pathname:'/SignUp',
+      }
+    } ></Redirect>
+  }
   return (
+    <>
+    
     <div className="container-fluid">
       <div className="container">
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -61,7 +73,7 @@ const Register = () => {
             className="text-center font-weight-bold"
             style={{ paddingTop: "30px" }}
           >
-            finish signing up
+            Finish signing up
           </h3>
           <hr />
           <div className="form-outline ">
@@ -179,6 +191,7 @@ const Register = () => {
         </form>
       </div>
     </div>
+  </>
   );
 };
 

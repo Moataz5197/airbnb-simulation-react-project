@@ -4,19 +4,13 @@ const initialState = {
   profile: {
     firstName: '',
     lastName: '',
-    telephone: '',
-    age: 28,
+    phoneNumber: '',
+    dateOfBirth: '',
     email: '',
     state: '',
     country: '',
-    address: 'Home',
-    address1: '',
-    address2: '',
-    interests: [],
-    profileImage: '',
-    subscribenewsletter: false
-  },
-  formSubmitted: false
+  }
+
 }
 
 const reducer = (state = initialState, action) => {
@@ -26,9 +20,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         profile: action.payload.user,
-        formSubmitted: false // after update user formsubmition reset
       }
-    case TYPES.ADD_USER:
+    case TYPES.SIGNUP:
       return {
         ...state,
         profile: action.payload.user,
@@ -39,19 +32,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         profile: action.payload.user,
         formSubmitted: false // after update user formsubmition reset
-      }
-    case TYPES.UPDATE_PROFILE_PICTURE:
-      return {
-        ...state,
-        profile: {
-          ...state.profile,
-          profileImage: action.payload.image
-        }
-      }
-    case TYPES.FORM_SUBMITION_STATUS:
-      return {
-        ...state,
-        formSubmitted: action.payload.status
       }
     default:
       return state;

@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Redirect } from "react-router-dom";
 import * as yup from "yup";
 import "./SignUp.css";
+
 
 const schema = yup.object().shape({
   phone_number: yup
@@ -14,15 +16,27 @@ const schema = yup.object().shape({
 });
 
 const Signup = () => {
+  
+  const [Register,setRegister] = useState(null);
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
 
   const onSubmit = (res) => {
-    console.log(res);
-    // API call
+      
+      setRegister({res});
+    
+
   };
 
+  if (Register) {
+    return <Redirect to={
+      {
+        pathname:'/Register',
+        state: Register
+      }
+    } ></Redirect>
+  }
   return (
     <div className="container-fluid">
       <div className="container">

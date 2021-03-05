@@ -1,5 +1,5 @@
 import {UncontrolledCarousel} from "reactstrap";
-
+import "./carousel.css";
 
 
 const Carousel =(props)=>{
@@ -14,7 +14,8 @@ const Carousel =(props)=>{
           altText: '',
           caption: '',
           header: '',
-          key: '1'
+          key: '1',
+          
         },
         {
           src: other_imgs[0],
