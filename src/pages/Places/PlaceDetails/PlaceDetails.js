@@ -205,7 +205,7 @@ export default function PlaceDetails() {
                         ? "Private room"
                         : data.space_allowed.shared_room
                         ? "Shared room"
-                        : "Entire home"}{" "}
+                        : "Entire house"}{" "}
                       hosted by {hostData.fname}
                     </h2>
                     <span className="summarySpan">
@@ -453,7 +453,10 @@ export default function PlaceDetails() {
                     <span className="priceNight"> / night</span>
                   </div>
                   <div>
-                    <FontAwesomeIcon className="icon" icon={faStar} />
+                    <FontAwesomeIcon
+                      className="icon"
+                      icon={faStar}
+                    />
                     <span className="rating">4.95</span>
                     <span className="number">(19)</span>
                   </div>
