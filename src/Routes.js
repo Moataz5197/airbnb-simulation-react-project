@@ -1,6 +1,8 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import Product from "./components/productList/product";
+import GuardedRoute from "./GuardedRoutes";
+import DashBoard from "./pages/Host/PlaceHosting/DashBoard/DashBoard";
 
 
 
@@ -18,7 +20,13 @@ const Overview = React.lazy(()=>import("./pages/Host/PlaceHosting/PlaceHostingOv
 const HostingForm = React.lazy(()=>import("./pages/Host/PlaceHosting/PlaceHostingForm/Form"))
 
 
+
 export default function Routes() {
+  const [editMood,setEditMood]=useState(false)
+
+  const convertToEdit = ()=>{
+    setEditMood(true)
+  }
   return (
     <Suspense fallback="loading...">
       <Switch>
@@ -33,6 +41,9 @@ export default function Routes() {
         <Route path="/Register" exact component={Register}/>
         <Route path="/placeHosting/overview" component={Overview}/>
         <Route path="/placeHosting/Hosting" component={HostingForm}/>
+        <GuardedRoute path='/placeHosting/editPlace/:id' exact component={HostingForm} auth={editMood} />
+        <Route path="/placeHosting/MyPlaces" render={() => <DashBoard setEdit={convertToEdit}/>} />
+
 
         <Route path="*" component={Eror404} />
       </Switch>

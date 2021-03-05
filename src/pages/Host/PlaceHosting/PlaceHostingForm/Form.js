@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Form.css";
 import { Col, Row, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-import { addPlaceAxiosInstance } from "../../../../axiosInstance";
+import { useSelector } from "react-redux";
+import {axiosInstance} from "../../../../axiosInstance"
 
-export default function HostingForm(){
+export default function HostingForm(props){
+    const places = Object.values(useSelector(state => state.Places))
+
     const[formData,setFormData]=React.useState({
         place_type: {
             apartment: false,
@@ -63,9 +66,16 @@ export default function HostingForm(){
             main_img: "https://a0.muscache.com/im/pictures/b9adfc39-6e2a-4e5f-b6f3-681b306fae5c.jpg?im_w=320",
             other_imgs: ["https://a0.muscache.com/im/pictures/b9adfc39-6e2a-4e5f-b6f3-681b306fae5c.jpg?im_w=320", "https://a0.muscache.com/im/pictures/b9adfc39-6e2a-4e5f-b6f3-681b306fae5c.jpg?im_w=320","https://a0.muscache.com/im/pictures/b9adfc39-6e2a-4e5f-b6f3-681b306fae5c.jpg?im_w=320","https://a0.muscache.com/im/pictures/b9adfc39-6e2a-4e5f-b6f3-681b306fae5c.jpg?im_w=320"]
         },
-        price_per_night: 100,
+        price_per_night: "",
         cancellation_option: false
     })
+
+    useEffect(()=>{
+        if (props.match.params.id) {
+            let place = places.filter((ele)=>ele._id==props.match.params.id)
+            setFormData(place[0])
+        }
+    },[])
 
     const handleFormData=(e,type,subType)=>{
         if (type) {
@@ -105,7 +115,13 @@ export default function HostingForm(){
     }
 
     const addPlace=()=>{
-        addPlaceAxiosInstance.post("",formData)
+        axiosInstance.post("hosting/hostPlace",formData)
+        .then((response)=>console.log(response))
+        .catch((err)=>console.log(err))
+    }
+
+    const editPlace = ()=>{
+        axiosInstance.put(`places/edit/${props.match.params.id}`,formData)
         .then((response)=>console.log(response))
         .catch((err)=>console.log(err))
     }
@@ -190,25 +206,25 @@ export default function HostingForm(){
                 <Label>Place type</Label>
                 <FormGroup check>
                 <Label check>
-                    <Input value={true} type="radio" name="placeType" id="apartment"/>{' '}
+                    <Input checked={formData.place_type.apartment} value={true} type="radio" name="placeType" id="apartment"/>{' '}
                         Apartment
                 </Label>
                 </FormGroup>
                 <FormGroup check>
                 <Label check>
-                    <Input value={true} type="radio" name="placeType" id="house"/>{' '}
+                    <Input checked={formData.place_type.house} value={true} type="radio" name="placeType" id="house"/>{' '}
                         House
                 </Label>
                 </FormGroup>
                 <FormGroup check>
                 <Label check>
-                    <Input value={true} type="radio" name="placeType" id="villa" />{' '}
+                    <Input checked={formData.place_type.villa} value={true} type="radio" name="placeType" id="villa" />{' '}
                         Villa
                 </Label>
                 </FormGroup>
                 <FormGroup check>
                 <Label check>
-                    <Input value={true} type="radio" name="placeType" id="bed_and_breakfast" />{' '}
+                    <Input checked={formData.place_type.bed_and_breakfast} value={true} type="radio" name="placeType" id="bed_and_breakfast" />{' '}
                         Bed and breakfast
                 </Label>
                 </FormGroup>
@@ -227,19 +243,19 @@ export default function HostingForm(){
                 <Label>Space type</Label>
                 <FormGroup check>
                 <Label check>
-                    <Input value={true} type="radio" name="spaceType" id="entire_place" />{' '}
+                    <Input checked={formData.space_allowed.entire_place} value={true} type="radio" name="spaceType" id="entire_place" />{' '}
                         Entire place
                 </Label>
                 </FormGroup>
                 <FormGroup check>
                 <Label check>
-                    <Input value={true} type="radio" name="spaceType" id="private_room" />{' '}
+                    <Input checked={formData.space_allowed.private_room} value={true} type="radio" name="spaceType" id="private_room" />{' '}
                         Private room
                 </Label>
                 </FormGroup>
                 <FormGroup check>
                 <Label check>
-                    <Input value={true} type="radio" name="spaceType" id="shared_room" />{' '}
+                    <Input checked={formData.space_allowed.shared_room} value={true} type="radio" name="spaceType" id="shared_room" />{' '}
                         Shared room
                 </Label>
                 </FormGroup>
@@ -253,73 +269,73 @@ export default function HostingForm(){
                     <Label><b>Essential</b></Label>
                     <FormGroup check>
                         <Label check>
-                        <Input name="essentials" onChange={(e)=>handleFormData(e,"amenities","essential")} type="checkbox"/>{' '}
+                        <Input checked={formData.amenities.essential.essentials} name="essentials" onChange={(e)=>handleFormData(e,"amenities","essential")} type="checkbox"/>{' '}
                             Essentials
                         </Label>
                     </FormGroup>
                     <FormGroup check>
                         <Label check>
-                        <Input name="desk_workspace" onChange={(e)=>handleFormData(e,"amenities","essential")} type="checkbox"/>{' '}
+                        <Input checked={formData.amenities.essential.desk_workspace} name="desk_workspace" onChange={(e)=>handleFormData(e,"amenities","essential")} type="checkbox"/>{' '}
                             Desk workspace
                         </Label>
                     </FormGroup>
                     <FormGroup check>
                         <Label check>
-                        <Input name="iron" onChange={(e)=>handleFormData(e,"amenities","essential")}  type="checkbox"/>{' '}
+                        <Input checked={formData.amenities.essential.iron} name="iron" onChange={(e)=>handleFormData(e,"amenities","essential")}  type="checkbox"/>{' '}
                             Iron
                         </Label>
                     </FormGroup>
                     <FormGroup check>
                         <Label check>
-                        <Input name="hair_dryer" onChange={(e)=>handleFormData(e,"amenities","essential")} type="checkbox"/>{' '}
+                        <Input checked={formData.amenities.essential.hair_dryer} name="hair_dryer" onChange={(e)=>handleFormData(e,"amenities","essential")} type="checkbox"/>{' '}
                             Hair dryer
                         </Label>
                     </FormGroup>
                     <FormGroup check>
                         <Label check>
-                        <Input name="shampoo" onChange={(e)=>handleFormData(e,"amenities","essential")} type="checkbox"/>{' '}
+                        <Input checked={formData.amenities.essential.shampoo} name="shampoo" onChange={(e)=>handleFormData(e,"amenities","essential")} type="checkbox"/>{' '}
                             Shampoo
                         </Label>
                     </FormGroup>
                     <FormGroup check>
                         <Label check>
-                        <Input name="closet_drawers" onChange={(e)=>handleFormData(e,"amenities","essential")} type="checkbox"/>{' '}
+                        <Input checked={formData.amenities.essential.closet_drawers} name="closet_drawers" onChange={(e)=>handleFormData(e,"amenities","essential")} type="checkbox"/>{' '}
                             Closet drawers
                         </Label>
                     </FormGroup>
                     <FormGroup check>
                         <Label check>
-                        <Input name="tv" onChange={(e)=>handleFormData(e,"amenities","essential")} type="checkbox"/>{' '}
+                        <Input checked={formData.amenities.essential.tv} name="tv" onChange={(e)=>handleFormData(e,"amenities","essential")} type="checkbox"/>{' '}
                             TV
                         </Label>
                     </FormGroup>
                     <FormGroup check>
                         <Label check>
-                        <Input name="heat" onChange={(e)=>handleFormData(e,"amenities","essential")} type="checkbox"/>{' '}
+                        <Input checked={formData.amenities.essential.heat} name="heat" onChange={(e)=>handleFormData(e,"amenities","essential")} type="checkbox"/>{' '}
                             Heater
                         </Label>
                     </FormGroup>
                     <FormGroup check>
                         <Label check>
-                        <Input name="wifi" onChange={(e)=>handleFormData(e,"amenities","essential")} type="checkbox"/>{' '}
+                        <Input checked={formData.amenities.essential.wifi} name="wifi" onChange={(e)=>handleFormData(e,"amenities","essential")} type="checkbox"/>{' '}
                             WiFi
                         </Label>
                     </FormGroup>
                     <FormGroup check>
                         <Label check>
-                        <Input name="breakfast_coffee_tea" onChange={(e)=>handleFormData(e,"amenities","essential")} type="checkbox"/>{' '}
+                        <Input checked={formData.amenities.essential.breakfast_coffee_tea} name="breakfast_coffee_tea" onChange={(e)=>handleFormData(e,"amenities","essential")} type="checkbox"/>{' '}
                             Breakfast, Coffee, Tea
                         </Label>
                     </FormGroup>
                     <FormGroup check>
                         <Label check>
-                        <Input name="air_conditioning" onChange={(e)=>handleFormData(e,"amenities","essential")} type="checkbox"/>{' '}
+                        <Input checked={formData.amenities.essential.air_conditioning} name="air_conditioning" onChange={(e)=>handleFormData(e,"amenities","essential")} type="checkbox"/>{' '}
                             Air conditioning
                         </Label>
                     </FormGroup>
                     <FormGroup check>
                         <Label check>
-                        <Input name="fireplace" onChange={(e)=>handleFormData(e,"amenities","essential")} type="checkbox"/>{' '}
+                        <Input checked={formData.amenities.essential.fireplace} name="fireplace" onChange={(e)=>handleFormData(e,"amenities","essential")} type="checkbox"/>{' '}
                             Fireplace
                         </Label>
                     </FormGroup>
@@ -328,25 +344,25 @@ export default function HostingForm(){
                     <Label><b>Safety</b></Label>
                     <FormGroup check>
                         <Label check>
-                        <Input name="smoke_detector" onChange={(e)=>handleFormData(e,"amenities","safety")} type="checkbox"/>{' '}
+                        <Input checked={formData.amenities.safety.smoke_detector} name="smoke_detector" onChange={(e)=>handleFormData(e,"amenities","safety")} type="checkbox"/>{' '}
                             Smoke detector
                         </Label>
                     </FormGroup>
                     <FormGroup check>
                         <Label check>
-                        <Input name="first_aid_kit" onChange={(e)=>handleFormData(e,"amenities","safety")} type="checkbox"/>{' '}
+                        <Input checked={formData.amenities.safety.first_aid_kit} name="first_aid_kit" onChange={(e)=>handleFormData(e,"amenities","safety")} type="checkbox"/>{' '}
                             First aid kit
                         </Label>
                     </FormGroup>
                     <FormGroup check>
                         <Label check>
-                        <Input name="fire_extinguisher" onChange={(e)=>handleFormData(e,"amenities","safety")} type="checkbox"/>{' '}
+                        <Input checked={formData.amenities.safety.fire_extinguisher} name="fire_extinguisher" onChange={(e)=>handleFormData(e,"amenities","safety")} type="checkbox"/>{' '}
                             Fire extinguisher
                         </Label>
                     </FormGroup>
                     <FormGroup check>
                         <Label check>
-                        <Input name="lock_on_bedroom_door" onChange={(e)=>handleFormData(e,"amenities","safety")} type="checkbox"/>{' '}
+                        <Input checked={formData.amenities.safety.lock_on_bedroom_door} name="lock_on_bedroom_door" onChange={(e)=>handleFormData(e,"amenities","safety")} type="checkbox"/>{' '}
                             Lock on bedroom door
                         </Label>
                     </FormGroup>
@@ -354,37 +370,37 @@ export default function HostingForm(){
                     <Label><b>Facilities</b></Label>
                     <FormGroup check>
                         <Label check>
-                        <Input name="kitchen" onChange={(e)=>handleFormData(e,"amenities","facilities")} type="checkbox"/>{' '}
+                        <Input checked={formData.amenities.facilities.kitchen} name="kitchen" onChange={(e)=>handleFormData(e,"amenities","facilities")} type="checkbox"/>{' '}
                             Kitchen
                         </Label>
                     </FormGroup>
                     <FormGroup check>
                         <Label check>
-                        <Input name="pool" onChange={(e)=>handleFormData(e,"amenities","facilities")} type="checkbox"/>{' '}
+                        <Input checked={formData.amenities.facilities.pool} name="pool" onChange={(e)=>handleFormData(e,"amenities","facilities")} type="checkbox"/>{' '}
                             Pool
                         </Label>
                     </FormGroup>
                     <FormGroup check>
                         <Label check>
-                        <Input name="parking" onChange={(e)=>handleFormData(e,"amenities","facilities")} type="checkbox"/>{' '}
+                        <Input checked={formData.amenities.facilities.parking} name="parking" onChange={(e)=>handleFormData(e,"amenities","facilities")} type="checkbox"/>{' '}
                             Parking
                         </Label>
                     </FormGroup>
                     <FormGroup check>
                         <Label check>
-                        <Input name="gym" onChange={(e)=>handleFormData(e,"amenities","facilities")} type="checkbox"/>{' '}
+                        <Input checked={formData.amenities.facilities.gym} name="gym" onChange={(e)=>handleFormData(e,"amenities","facilities")} type="checkbox"/>{' '}
                             GYM
                         </Label>
                     </FormGroup>
                     <FormGroup check>
                         <Label check>
-                        <Input name="laundry" onChange={(e)=>handleFormData(e,"amenities","facilities")} type="checkbox"/>{' '}
+                        <Input checked={formData.amenities.facilities.laundry} name="laundry" onChange={(e)=>handleFormData(e,"amenities","facilities")} type="checkbox"/>{' '}
                             Laundry
                         </Label>
                     </FormGroup>
                     <FormGroup check>
                         <Label check>
-                        <Input name="hot_tub" onChange={(e)=>handleFormData(e,"amenities","facilities")} type="checkbox"/>{' '}
+                        <Input checked={formData.amenities.facilities.hot_tub} name="hot_tub" onChange={(e)=>handleFormData(e,"amenities","facilities")} type="checkbox"/>{' '}
                             Hot tub
                         </Label>
                     </FormGroup>
@@ -410,7 +426,7 @@ export default function HostingForm(){
             </Row>
             <FormGroup check>
                 <Label check>
-                <Input name="cancellation_option" value={formData.cancellation_option} 
+                <Input checked={formData.cancellation_option} name="cancellation_option" value={formData.cancellation_option} 
                 onChange={()=>{
                         setFormData({
                             ...formData,
@@ -421,7 +437,11 @@ export default function HostingForm(){
                 </Label>
             </FormGroup>
             <br/>
-             <Button onClick={addPlace}>Host your place</Button>
+            {
+                props.match.params.id?
+                <Button onClick={editPlace}>Edit your place</Button>:
+                <Button onClick={addPlace}>Host your place</Button>
+            }
             </Form>
         </div>
         </div>
