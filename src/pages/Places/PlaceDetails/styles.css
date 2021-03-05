@@ -125,13 +125,23 @@ hr {
   font-weight: 300;
   width: 600px;
 }
+/* :not(.DayPicker-Day--start):not(.DayPicker-Day--end) */
 .calendarRange
-  .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
+  .DayPicker-Day--selected:not(.DayPicker-Day--outside) {
   background-color: rgb(41, 41, 41);
   color: rgb(255, 255, 255);
 }
+.calendarRange
+  .DayPicker-Day--selected:not(.DayPicker-Day--outside):hover {
+    background-color: rgb(41, 41, 41);
+  }
 .calendarRange .DayPicker-Day {
   padding: 10px;
+  color: rgb(34, 34, 34);
+}
+.calendarRange .DayPicker-Day--disabled {
+  text-decoration: line-through;
+  color: rgb(176, 176, 176);
 }
 .calendarRange .DayPicker-Month {
   margin: 25px 0;
@@ -184,7 +194,10 @@ hr {
   font-size: 14px;
   font-weight: 100;
 }
-
+.reservationCard .icon {
+  color: rgb(255, 56, 92);
+  width: 14px;
+}
 .reservationCard .resCardControls {
   color: rgb(34, 34, 34);
   margin: 20px 0;

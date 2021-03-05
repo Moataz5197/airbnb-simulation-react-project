@@ -49,15 +49,24 @@ export default function PlaceDetails() {
 
   const getData = async () => {
     try {
+      // place data
       const response = await axiosInstance.get(
         `http://localhost:4000/places/${location.state.id}`
       );
       setData(response.data);
-
+      
+      // host data
       const host = await axiosInstance.get(
         `http://localhost:4000/users/${response.data.user_id}`
       );
       setHostData(host.data);
+
+      // reservations data
+      const reservations = await axiosInstance.get(
+        `http://localhost:4000/reservations/forplace/${response.data._id}`
+      );
+      handleDisabledDates(reservations.data);
+      
     } catch (err) {
       console.log(err);
     }
@@ -68,9 +77,34 @@ export default function PlaceDetails() {
   const [to, setTo] = useState(undefined);
   const [resNumOfDays, setResNumOfDays] = useState(undefined);
   const [modal, setModal] = useState(false);
+  const [disabledDates, setDisabledDates] = useState([]);
   const toggle = () => setModal(!modal);
   const today = new Date();
 
+  const handleDisabledDates = (resDataArr) =>{
+     if(resDataArr.length > 0){
+      let datesArray = [];
+
+      resDataArr.map((res, index) => {
+        let startDate = new Date(res.start_date);
+        let beforeStart = new Date(startDate.getTime() - 86400000);
+        let endDate = new Date(res.end_date);
+        let afterEnd = new Date(endDate.getTime() + 86400000);
+        beforeStart.toLocaleDateString();
+        afterEnd.toLocaleDateString();
+
+        datesArray.push({
+          after: new Date(beforeStart),
+          before: new Date(afterEnd),
+        });
+      });
+
+      setDisabledDates(datesArray);
+     }
+      
+  }
+
+  // reservation receipt
   const [receipt, setReceipt] = useState({
     subTotal: null,
     serviceFee: null,
@@ -125,7 +159,8 @@ export default function PlaceDetails() {
           pathname: "/placedetails/confirm/reservation",
           state: {
             data,
-            calendar: {startDate: from, endDate: to},
+            hostData,
+            calendar: { startDate: from, endDate: to },
             daysRange: resNumOfDays,
             numOfGuests: guests,
             receipt,
@@ -170,7 +205,7 @@ export default function PlaceDetails() {
                         ? "Private room"
                         : data.space_allowed.shared_room
                         ? "Shared room"
-                        : "Entire home"}{" "}
+                        : "Entire house"}{" "}
                       hosted by {hostData.fname}
                     </h2>
                     <span className="summarySpan">
@@ -394,10 +429,16 @@ export default function PlaceDetails() {
                   <DayPicker
                     month={from}
                     numberOfMonths={2}
-                    disabledDays={{ before: today }}
+                    disabledDays={[{ before: today }, ...disabledDates]}
                     selectedDays={[from, { from, to }]}
-                    onDayClick={(date) => {
-                      const range = DateUtils.addDayToRange(date, { from, to });
+                    onDayClick={(date, modifiers = {}) => {
+                      if (modifiers.disabled) {
+                        return;
+                      }
+                      const range = DateUtils.addDayToRange(date, {
+                        from,
+                        to,
+                      });
                       setFrom(range.from);
                       setTo(range.to);
                     }}
@@ -412,7 +453,10 @@ export default function PlaceDetails() {
                     <span className="priceNight"> / night</span>
                   </div>
                   <div>
-                    <FontAwesomeIcon className="icon" icon={faStar} />
+                    <FontAwesomeIcon
+                      className="icon"
+                      icon={faStar}
+                    />
                     <span className="rating">4.95</span>
                     <span className="number">(19)</span>
                   </div>
@@ -443,9 +487,12 @@ export default function PlaceDetails() {
                           <DayPicker
                             month={from}
                             numberOfMonths={2}
-                            disabledDays={{ before: today }}
+                            disabledDays={[{ before: today }, ...disabledDates]}
                             selectedDays={[from, { from, to }]}
-                            onDayClick={(date) => {
+                            onDayClick={(date, modifiers = {}) => {
+                              if (modifiers.disabled) {
+                                return;
+                              }
                               const range = DateUtils.addDayToRange(date, {
                                 from,
                                 to,
