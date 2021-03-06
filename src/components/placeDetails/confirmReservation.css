@@ -17,7 +17,7 @@
 .icon {
   font-size: 22px;
   padding-top: 8px;
-  color: rgb(44, 44, 44);
+  color: rgb(44, 44, 44) !important;
 }
 .backIconContainer {
   padding: 12px;
