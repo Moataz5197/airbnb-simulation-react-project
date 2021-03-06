@@ -11,6 +11,9 @@ export const citiesAxiosInstance = axios.create({
 export const axiosInstance = axios.create({
 
   baseURL: "http://localhost:4000/",
+  headers: {
+    "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjA0MzYyZTU3YmQwNTIwYmNjMTU5ZTgzIn0sImlhdCI6MTYxNTA0MjAzMiwiZXhwIjoxNjE1MDQzMjMyfQ.3kYL2R5N_Y2_Uyx1qKqh01OJv2zdOWp7Po2U2MSzyRU",
+  },
  
 });
 
