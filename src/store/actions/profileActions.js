@@ -4,25 +4,26 @@ import { userAxiosInstance } from "../../axiosInstance";
 export const getAuthUser =  (token) => async (dispatch) => {
   try{
     const userData = await userAxiosInstance.get(`/me`,{headers:{token}}) ;
-    console.log(places);
+    console.log(userData.data);
     dispatch({
             type : TYPES.LOGIN,
-            payload : userData.data
+            payload : {data :userData.data, token : token ,isAutheticated: true}
           });
   }
   catch(e){
     console.log(e);
   }
 };
+export const refreshAuth = (token) => async (dispatch) => {
 
-export const setUser =  (page) => async (dispatch) => {
   try{
-    const userToken = await userAxiosInstance.post(`/signup`) ;
-    console.log(places);
+
+    const newToken = await userAxiosInstance.get(`/token`,{headers:{token}});
+    console.log(newToken.data);
     dispatch({
-            type : TYPES.SIGNUP,
-            payload : userToken.data
-          });
+      type: TYPES.REFRESH,
+      payload : {token : newToken.data}
+    });
   }
   catch(e){
     console.log(e);
@@ -32,7 +33,7 @@ export const setUser =  (page) => async (dispatch) => {
 export const updateAuthuser =  () => async (dispatch) => {
   try{
     const places = await userAxiosInstance.get(`/me`) ;
-    console.log(places);
+    //console.log(places);
     dispatch({
             type : TYPES.UPDATE_USER,
             payload : places.data

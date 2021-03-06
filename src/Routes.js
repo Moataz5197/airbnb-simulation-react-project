@@ -1,4 +1,5 @@
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import Nav from "./components/Nav/nav";
 import GuardedRoute from "./GuardedRoutes";
@@ -18,12 +19,10 @@ const HostingForm = React.lazy(()=>import("./pages/Host/PlaceHosting/PlaceHostin
 const ConfirmReservation = React.lazy(() => import("./components/placeDetails/confirmReservation"));
 
 export default function Routes() {
-  let isAutheticated = false;
-  useEffect(() => {
-    
-    
-    
-  }, []);
+  const isAutheticated =  useSelector((state)=>state.user.isAutheticated);
+  const places = useSelector((state)=>state.places.places);
+  const user = useSelector((state)=>state.user)
+  console.log("omg",isAutheticated,user,places);
   return (
     <Suspense fallback="loading...">
       <Switch>
