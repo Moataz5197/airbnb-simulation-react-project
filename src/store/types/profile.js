@@ -1,3 +1,4 @@
 export const LOGIN = 'LOGIN';
-export const SIGNUP =  'SIGNUP';
+export const REFRESH = 'REFRESH';
 export const UPDATE_USER = 'UPDATE_USER';
+export const LOGOUT = 'LOGOUT';

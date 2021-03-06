@@ -1,37 +1,38 @@
 import * as TYPES from "../types/profile";
 
 const initialState = {
-  profile: {
-    firstName: '',
-    lastName: '',
-    phoneNumber: '',
-    dateOfBirth: '',
-    email: '',
-    state: '',
-    country: '',
-  }
+  profile: {},
+  token:"",
+  isAutheticated : false
 
 }
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case TYPES.LOGIN:
-    console.log('login', action.payload.user)
       return {
         ...state,
-        profile: action.payload.user,
+        profile: action.payload.data,
+        token: action.payload.token,
+        isAutheticated : action.payload.isAutheticated
+        
       }
-    case TYPES.SIGNUP:
-      return {
+    case TYPES.REFRESH:
+      return{
         ...state,
-        profile: action.payload.user,
-        formSubmitted: false // after update user formsubmition reset
+        token: action.payload.token
       }
     case TYPES.UPDATE_USER:
       return {
         ...state,
         profile: action.payload.user,
         formSubmitted: false // after update user formsubmition reset
+      }
+    case TYPES.LOGOUT:
+      return{
+        ...state,
+        profile: {},
+        token: ""
       }
     default:
       return state;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -6,6 +6,8 @@ import "./Register.css";
 import { axiosInstance, userAxiosInstance } from "../../../axiosInstance";
 import { useLocation } from "react-router";
 import { Redirect } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { getAuthUser } from "../../../store/actions/profileActions";
 
 
 const schema = yup.object().shape({
@@ -35,25 +37,53 @@ const schema = yup.object().shape({
     .required(),
 });
 
-const onSubmit = (res) => {
-  console.log(res);
 
-  let data = {fname:res.fname,
-              lname:res.lname,
-              email:res.email,
-              password:res.password,
-              phone_number:"1254478",
-              profile_img:"sasa"
-            }
-
-  userAxiosInstance.post("/signup",data).then(console.log("done")).catch(console.error)
-};
 
 const Register = () => {
+  const [currentPage,setCurrentPage] = useState({state:true,data:""});
+  const user = useSelector((state)=>state.user.profile);
+  const isAutheticated = useSelector((state)=>state.user.isAutheticated);
+  console.log("44",user);
+  const dispatch = useDispatch();
   const location = useLocation();
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
+  const onSubmit = (res) => {
+    console.log(res);
+  
+    let data = {fname:res.fname,
+                lname:res.lname,
+                email:res.email,
+                password:res.password,
+                phone_number:"y",
+                profile_img:"x"
+              }
+              
+    userAxiosInstance.post("/signup",data)
+    .then((res)=>{
+  
+      let token = res.data.token;
+      
+      console.log(token);
+  
+      dispatch(getAuthUser(token));
+      
+      console.log("from reg is auth",isAutheticated);
+      if(isAutheticated){
+        setCurrentPage({
+          state:false,
+          data:{
+            pathname:'../../Profile/index.js',
+            state:{from:"register"}
+          }
+        });
+      }
+      
+      
+    })
+    .catch(console.error)
+  };
   
   
   if(location.state === undefined){
@@ -65,15 +95,18 @@ const Register = () => {
   }
   return (
     <>
-    
-    <div className="container-fluid">
+    {console.log(currentPage.state)}
+    {
+      
+    currentPage.state ?(
+      <div className="container-fluid">
       <div className="container">
         <form onSubmit={handleSubmit(onSubmit)}>
           <h3
             className="text-center font-weight-bold"
             style={{ paddingTop: "30px" }}
           >
-            Finish signing up
+            Finish Signing Up
           </h3>
           <hr />
           <div className="form-outline ">
@@ -191,6 +224,13 @@ const Register = () => {
         </form>
       </div>
     </div>
+
+    )
+    :(<Redirect to = {{
+        pathname:'../../Profile/index.js',
+        state:{from:"register"}
+      }}/>)} 
+    
   </>
   );
 };
