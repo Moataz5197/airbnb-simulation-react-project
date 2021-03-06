@@ -1,8 +1,13 @@
+
+
+import DashBoard from "./pages/Host/PlaceHosting/DashBoard/DashBoard";
+
 import React, { Suspense, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import Nav from "./components/Nav/nav";
 import GuardedRoute from "./GuardedRoutes";
+
 
 
 const Home = React.lazy(() => import("./pages/Home/index"));
@@ -18,7 +23,14 @@ const Overview = React.lazy(()=>import("./pages/Host/PlaceHosting/PlaceHostingOv
 const HostingForm = React.lazy(()=>import("./pages/Host/PlaceHosting/PlaceHostingForm/Form"))
 const ConfirmReservation = React.lazy(() => import("./components/placeDetails/confirmReservation"));
 
+
 export default function Routes() {
+
+  const [editMood,setEditMood]=useState(false)
+
+  const convertToEdit = ()=>{
+    setEditMood(true)
+  }
   const isAutheticated =  useSelector((state)=>state.user.isAutheticated);
   const places = useSelector((state)=>state.places.places);
   const user = useSelector((state)=>state.user)
@@ -44,11 +56,17 @@ export default function Routes() {
         
         <Route path="/placeHosting/overview" component={Overview}/>
         <Route path="/placeHosting/Hosting" component={HostingForm}/>
+
+        <GuardedRoute path='/placeHosting/editPlace/:id' exact component={HostingForm} auth={editMood} />
+        <Route path="/placeHosting/MyPlaces" render={() => <DashBoard setEdit={convertToEdit}/>} />
+
+
         <Route path="/placedetails/confirm/reservation" exact component={ConfirmReservation} />
 
         {/* Testing Routes*/}
 
         <Route path="/x" component={Nav} />
+
 
         {/* Error Routes*/}
         <Route path="*" component={Eror404} />

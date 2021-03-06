@@ -9,10 +9,9 @@ export const citiesAxiosInstance = axios.create({
 });
 
 export const axiosInstance = axios.create({
-  baseURL: "https://wft-geo-db.p.rapidapi.com/v1/geo/locations",
-  // headers: {
-    
-  // },
+
+  baseURL: "http://localhost:4000/",
+ 
 });
 
 // Add a request interceptor
@@ -45,19 +44,15 @@ citiesAxiosInstance.interceptors.response.use(function (response) {
 
   export const userAxiosInstance = axios.create({
   baseURL: "http://localhost:4000/users",
+
   headers: {
-    
+    "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjA0MjgwNTliMTBlOTcyYTYwYzQ5MmM4In0sImlhdCI6MTYxNDk4NTg0NywiZXhwIjoxNjE0OTg5NDQ3fQ.QkCBf5UY1Z8t5juIbSRohv8gUBVRc2ok8uSxe86L6hY"
   },
   
   params: {
   },
 });
-export const addPlaceAxiosInstance = axios.create({
-  baseURL:"http://localhost:4000/hosting/hostPlace",
-  headers:{
-    "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjAzMTgzOGU3ZTk3ZWQwMTM4MjU5ZjNmIn0sImlhdCI6MTYxNDM5MzUwNCwiZXhwIjoxNjE0Mzk3MTA0fQ.tbnLQ5NsiDlRJZC4tkqSg9dIXv1tXftr-YU4CBXBndg"
-  }
-})
+
 // Add a request interceptor
 axiosInstance.interceptors.request.use(
   function (config) {"token"
@@ -74,7 +69,7 @@ axiosInstance.interceptors.response.use(function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     // hide loader
-    console.log(response)
+    // console.log(response)
     // response.data.push("test")
     return response;
   }, function (error) {
