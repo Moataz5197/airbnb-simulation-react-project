@@ -38,7 +38,7 @@ const Signup = () => {
     } ></Redirect>
   }
   return (
-    <div className="container-fluid">
+    <div className="container-fluid mainContainer">
       <div className="container">
         <h3 className="text-center font-weight-bold ">sign up</h3>
         <hr />

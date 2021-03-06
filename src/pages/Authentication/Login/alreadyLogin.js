@@ -5,7 +5,7 @@ const AlreadyLogin = () => {
     return (
         <>
        
-  <div className="container-fluid">
+  <div className="container-fluid loginContainer">
     <div className="container">
       <h3 className="text-center font-weight-bold " style={{marginTop: "30px"}}>Welcome back</h3>
       <hr style={{marginBottom: 50}} />

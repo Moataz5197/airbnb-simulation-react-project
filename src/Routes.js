@@ -63,11 +63,6 @@ export default function Routes() {
 
         <Route path="/placedetails/confirm/reservation" exact component={ConfirmReservation} />
 
-        {/* Testing Routes*/}
-
-        <Route path="/x" component={Nav} />
-
-
         {/* Error Routes*/}
         <Route path="*" component={Eror404} />
         
