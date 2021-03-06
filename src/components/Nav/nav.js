@@ -36,7 +36,7 @@ const AirBnbNavBar = ()=>{
 
     return (
       <>
-        <Navbar expand="md" className="navigationBar">
+        <Navbar expand="md" className="navigationBar fixed">
           <NavbarBrand href="/placelisting" className="ml-3">
             <svg
               width="110"

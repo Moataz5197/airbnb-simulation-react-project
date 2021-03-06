@@ -173,9 +173,6 @@ export default function PlaceDetails() {
       <>
         {data && hostData ? (
           <>
-            <nav className="navbar navbar-expand-sm navbar-white d-flex justify-content-around fixed-top">
-              <h5>navbar</h5>
-            </nav>
 
             <Title
               data={{
