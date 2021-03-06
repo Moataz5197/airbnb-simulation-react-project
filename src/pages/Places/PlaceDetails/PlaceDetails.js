@@ -1,6 +1,7 @@
 import Title from "../../../components/placeDetails/titleComponent";
 import ImageGallery from "../../../components/placeDetails/imageGalleryComponent";
 import AmenitiesModal from "../../../components/placeDetails/amenitiesModal";
+import AirBnbNavBar from "../../../components/Nav/nav";
 
 import { Redirect } from "react-router-dom";
 import React, { useState, useEffect } from "react";
@@ -171,6 +172,8 @@ export default function PlaceDetails() {
   } else {
     return (
       <>
+        
+
         {data && hostData ? (
           <>
 
