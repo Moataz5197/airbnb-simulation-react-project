@@ -21,7 +21,7 @@ const RecommendedCities = () => {
   }
 
   function error() {
-    alert( 'Unable to retrieve your location');
+    
   }
   
   if(!navigator.geolocation) {
