@@ -10,6 +10,7 @@ const RecommendedCities = () => {
 
   const [location, setLocation]=React.useState({lat:'',long:''});
   function success(position) {
+    // console.log(position.coords.longitude);
     setLocation({lat:position.coords.latitude,long:position.coords.longitude})
     if(counter<=2){
     setTimeout(()=>{
@@ -30,31 +31,32 @@ const RecommendedCities = () => {
   }
   
   const getCitiesAroundMe=()=>{
-    citiesAxiosInstance.get(`/${location.lat?location.lat:32}+${location.long?location.long:30}/nearbyCities`,{
+    citiesAxiosInstance.get(`/${location.lat?location.lat:51.509865}${location.long?location.long>0?'+':'-':'-'}${location.long?location.long:0.118092}/nearbyCities`,{
       headers: {
         'x-rapidapi-key': '001c15ebe7msh77c9c616748c030p1718f6jsncb3d57f70b0b',
         'x-rapidapi-host': 'wft-geo-db.p.rapidapi.com'
     },
     params: {
-      radius: '1000',
+      radius: '100',
       offset: '0',
-      minPopulation: '100000',
+      minPopulation: '10000',
       limit: '8',
       distanceUnit: 'KM',
-      countryIds: 'EG',
+      // countryIds: 'EG',
       types: 'CITY'
     },
     })
     .then(function(response){
+      console.log(response.data);
       setCities(response.data)
     })
     .catch(function(err){
       console.log(err);
     })
   }
-  useEffect(()=>{
+  // useEffect(()=>{
   
-  },[])  
+  // },[])  
  
 
   return (
