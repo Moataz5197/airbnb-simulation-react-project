@@ -1,115 +1,134 @@
-const Footer = () => {
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setCurrntLanguage } from "../../../store/actions/languageActions";
+
+const Footer = (props) => {
+  const {
+    lang: { language },
+  } = useSelector((state) => state);
+  // const language = useSelector(state => state.language);
+  const dispatch = useDispatch();
+
+  const changeLang = () => {
+    dispatch(setCurrntLanguage(language === "ar" ? "en" : "ar"));
+  };
   return (
     <>
-
-      <section className="sec8">
+      <section dir={language === "ar" ?'rtl' :'ltr'} style={{textAlign:`${language === "ar" ? "right" : "left"}`}} className="sec8">
         <div className="container-fluid h-100 bg-light border border-top">
           <div className="container">
             <div className="row pt-5 pb-2">
               <div className="py-2 col-12 col-md-6 col-lg-3">
                 <div className="py-2">
-                  <b>About</b>
+                  <b>{language === "en" ?'About':'حول'}</b>
                 </div>
                 <a className="text-dark" href="#">
-                  <div className="py-2">How Airbnb works</div>
+                  <div className="py-2">{language === "en" ?'How Airbnb works':'طريقة عمل Airbnb'}</div>
                 </a>
                 <a className="text-dark" href="#">
-                  <div className="py-2">Newsroom</div>
+                  <div className="py-2">{language === "en" ?'Newsroom':'غرفة الأخبار'}</div>
                 </a>
                 <a className="text-dark" href="#">
-                  <div className="py-2">Investors</div>
+                  <div className="py-2">{language === "en" ?'Investors':'المستثمرون'}</div>
                 </a>
                 <a className="text-dark" href="#">
-                  <div className="py-2">Airbnb Plus</div>
+                  <div className="py-2">{language === "en" ?'Airbnb Plus':'Airbnb Plus'}</div>
                 </a>
                 <a className="text-dark" href="#">
-                  <div className="py-2">Airbnb Luxe</div>
+                  <div className="py-2">{language === "en" ?'Airbnb Luxe':'Airbnb Luxe'}</div>
                 </a>
                 <a className="text-dark" href="search.html">
-                  <div className="py-2">HotelTonight</div>
+                  <div className="py-2">{language === "en" ?'HotelTonight':'HotelTonight'}</div>
                 </a>
                 <a className="text-dark" href="#">
-                  <div className="py-2">Airbnb for Work</div>
+                  <div className="py-2">{language === "en" ?'Airbnb for Work':'Airbnb للأعمال'}</div>
                 </a>
                 <a className="text-dark" href="#">
-                  <div className="py-2">Olympics</div>
+                  <div className="py-2">{language === "en" ?'Olympics':'الألعاب الأولمبية'}</div>
                 </a>
                 <a className="text-dark" href="#">
-                  <div className="py-2">Careers</div>
+                  <div className="py-2">{language === "en" ?'Careers':'الوظائف'}</div>
                 </a>
               </div>
               <div className="py-2 col-12 col-md-6 col-lg-3">
                 <div className="py-2">
-                  <b>COMMUNITY</b>
+                  <b>{language === "en" ?'COMMUNITY':'المجتمع'}</b>
                 </div>
                 <a className="text-dark" href="#">
-                  <div className="py-2">Diversity & Belonging</div>
+                  <div className="py-2">{language === "en" ?'Diversity & Belonging':'التنوع والانتماء'}</div>
                 </a>
                 <a className="text-dark" href="#">
-                  <div className="py-2">Against Discrimination</div>
+                  <div className="py-2">{language === "en" ?'Against Discrimination':'ضد التمييز'}</div>
                 </a>
                 <a className="text-dark" href="#">
-                  <div className="py-2">Accessibility</div>
+                  <div className="py-2">{language === "en" ?'Accessibility':'سهولة الوصول'}</div>
                 </a>
                 <a className="text-dark" href="#">
-                  <div className="py-2">Airbnb Associates</div>
+                  <div className="py-2">{language === "en" ?'Airbnb Associates':'شركاء Airbnb'}</div>
                 </a>
                 <a className="text-dark" href="#">
-                  <div className="py-2">Frontline Stays</div>
+                  <div className="py-2">{language === "en" ?'Frontline Stays':'أماكن إقامة للمتواجدين في الخطوط الأمامية'}</div>
                 </a>
                 <a className="text-dark" href="account.html">
-                  <div className="py-2">Invite friends</div>
+                  <div className="py-2">{language === "en" ?'Invite friends':'إحالات الضيوف'}</div>
                 </a>
                 <a className="text-dark" href="account.html">
-                  <div className="py-2">Gift cards</div>
+                  <div className="py-2">{language === "en" ?'Gift cards':'بطاقات الهدايا'}</div>
                 </a>
                 <a className="text-dark" href="#">
-                  <div className="py-2">Airbnb.org</div>
+                  <div className="py-2">{language === "en" ?'Airbnb.org':'Airbnb.org'}</div>
+                </a>
+                <a className="text-dark" href="#">
+                  <div className="py-2">{language === "en" ?`language:en`:'اللغة:العربيه'}</div>
                 </a>
               </div>
 
               <div className="py-2 col-12 col-md-6 col-lg-3">
                 <div className="py-2">
-                  <b>HOST</b>
+                  <b>{language === "en" ?'HOST':'المضيف'}</b>
                 </div>
                 <a className="text-dark" href="#">
-                  <div className="py-2">Host your home</div>
+                  <div className="py-2">{language === "en" ?'Host your home':'تقديم الاستضافة في بيتك'}</div>
                 </a>
                 <a className="text-dark" href="online-experience.html">
-                  <div className="py-2">Host an Online Experience</div>
+                  <div className="py-2">{language === "en" ?'Host an Online Experience':'استضافة تجربة سفر عبر الإنترنت'}</div>
                 </a>
                 <a className="text-dark" href="host_place.html">
-                  <div className="py-2">Host an Experience</div>
+                  <div className="py-2">{language === "en" ?'Host an Experience':'استضافة تجربة سفر'}</div>
                 </a>
                 <a className="text-dark" href="#">
-                  <div className="py-2">Responsible hosting</div>
+                  <div className="py-2">{language === "en" ?'Responsible hosting':'الاستضافة المسؤولة'}</div>
                 </a>
                 <a className="text-dark" href="#">
-                  <div className="py-2">Resource Center</div>
+                  <div className="py-2">{language === "en" ?'Resource Center':'مركز الموارد'}</div>
                 </a>
                 <a className="text-dark" href="#">
-                  <div className="py-2">Community Center</div>
+                  <div className="py-2">{language === "en" ?'Community Center':'مركز مجتمعي'}</div>
                 </a>
+                <a href="#" className="text-dark">
+                  <div><b className="py-2" onClick={changeLang}>{language === "en" ?'Change current language':'غير اللغه'}</b></div>
+              </a>
+                
               </div>
 
               <div className="py-2 col-12 col-md-6 col-lg-3">
                 <div className="py-2">
-                  <b>SUPPORT</b>
+                  <b>{language === "en" ?'SUPPORT':'الدعم'}</b>
                 </div>
                 <a className="text-dark" href="#">
-                  <div className="py-2">Our COVID-19 Response</div>
+                  <div className="py-2">{language === "en" ?'Our COVID-19 Response':'استجابتنا لمكافحة فيروس كورونا'}</div>
                 </a>
                 <a className="text-dark" href="#">
-                  <div className="py-2">Help Center</div>
+                  <div className="py-2">{language === "en" ?'Help Center':'مركز المساعدة'}</div>
                 </a>
                 <a className="text-dark" href="#">
-                  <div className="py-2">Cancellation options</div>
+                  <div className="py-2">{language === "en" ?'Cancellation options':'خيارات الإلغاء'}</div>
                 </a>
                 <a className="text-dark" href="#">
-                  <div className="py-2">Neighborhood Support</div>
+                  <div className="py-2">{language === "en" ?'Neighborhood Support':'دعم الحي'}</div>
                 </a>
                 <a className="text-dark" href="#">
-                  <div className="py-2">Trust & Safety</div>
+                  <div className="py-2">{language === "en" ?'Trust & Safety':'الثقة والسلامة'}</div>
                 </a>
               </div>
             </div>
@@ -120,15 +139,15 @@ const Footer = () => {
             <div className="col-12 col-lg-8">
               © 2021 Airbnb, Inc. All rights reserved ·
               <a href="#" className="text-dark">
-                Privacy
+              {language === "en" ?'Privacy':'الخصوصية'}
               </a>{" "}
               ·
               <a href="#" className="text-dark">
-                Terms
+              {language === "en" ?'Terms':'البنود'}
               </a>{" "}
               ·
               <a href="#" className="text-dark">
-                Sitemap
+              {language === "en" ?'Sitemap':'خريطة الموقع'} 
               </a>
             </div>
 
@@ -145,7 +164,7 @@ const Footer = () => {
                   <path d="M8.002.25a7.77 7.77 0 017.748 7.776 7.75 7.75 0 01-7.521 7.72l-.246.004a7.75 7.75 0 01-7.73-7.513L.25 7.992A7.75 7.75 0 018.002.25zm1.949 8.5H6.048c.155 2.897 1.176 5.343 1.886 5.493l.068.007c.68-.002 1.72-2.365 1.932-5.23zm4.255 0h-2.752c-.091 1.96-.53 3.783-1.188 5.076a6.257 6.257 0 003.905-4.829zm-9.661 0h-2.75a6.257 6.257 0 003.934 5.075c-.615-1.208-1.036-2.875-1.162-4.686l-.022-.39zm1.188-6.576l-.115.046a6.257 6.257 0 00-3.823 5.03h2.75c.085-1.83.471-3.54 1.059-4.81zm2.262-.424c-.702.002-1.784 2.512-1.947 5.5h3.904C9.796 4.347 8.774 1.907 8.06 1.756l-.065-.007zm2.28.432l.023.05c.643 1.288 1.069 3.084 1.157 5.018h2.748a6.275 6.275 0 00-3.929-5.068z"></path>
                 </svg>
                 <u>
-                  <b>English (US)</b>
+                  <b onClick={changeLang}>{language === "en" ?'English (US)':'العربيه'}</b>
                 </u>
               </a>
               <a href="#" className="text-dark">
@@ -188,8 +207,8 @@ const Footer = () => {
                 <a href="#" className="text-dark">
                   <svg
                     fill="currentcolor"
-                    ariaHidden="false"
-                    ariaLabel="Navigate to Instagram"
+                    aria-hidden="false"
+                    aria-label="Navigate to Instagram"
                     display="block"
                     viewBox="0 0 24 24"
                     style={{ height: 18, width: 18 }}

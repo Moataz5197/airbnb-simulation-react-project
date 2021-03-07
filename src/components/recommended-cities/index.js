@@ -2,6 +2,8 @@ import { useEffect} from 'react';
 
 import {citiesAxiosInstance} from '../../axiosInstance'
 import React from 'react'
+import { useDispatch, useSelector } from "react-redux";
+import { setCurrntLanguage } from "../../store/actions/languageActions";
 
 let counter=0;
 const RecommendedCities = () => {
@@ -57,11 +59,23 @@ const RecommendedCities = () => {
   // useEffect(()=>{
   
   // },[])  
- 
+  const {
+    lang: { language },
+  } = useSelector((state) => state);
+  // const language = useSelector(state => state.language);
+  const dispatch = useDispatch();
 
+  const changeLang = () => {
+    dispatch(setCurrntLanguage(language === "ar" ? "en" : "ar"));
+  };
+    const fixedHours=()=>{
+      if (language === "en") return'hours drive' 
+    
+    else return 'ساعات قياده بالسياره';
+  }
   return (
     <>
-      <div className="container h-100">
+      <div dir={language === "ar" ?'rtl' :'ltr'} style={{textAlign:`${language === "ar" ?'right' :'left'}`}} className={language === "ar" ? "rtlClass" : "ltrClass"} className="container h-100">
         <div className="row pb-4 pt-5">
           <div className="col-12 col-md-6 col-lg-3 pb-4 d-flex ">
             <img
@@ -79,7 +93,7 @@ const RecommendedCities = () => {
 
               <div>{cities.length!==0?
               Math.round(((cities.data[0].distance/120) * 100)) / 100
-              :'0'} hours drive</div>
+              :'0'} {fixedHours()}</div>
             </div>
           </div>
 
@@ -97,7 +111,7 @@ const RecommendedCities = () => {
               }</div>
               <div>{cities.length!==0?
               Math.round(((cities.data[1].distance/120) * 100)) / 100
-              :'0'} hour drive</div>
+              :'0'} {fixedHours()}</div>
             </div>
           </div>
 
@@ -115,7 +129,7 @@ const RecommendedCities = () => {
               }</div>
               <div>{cities.length!==0?
               Math.round(((cities.data[2].distance/120) * 100)) / 100
-              :'0'} hour drive</div>
+              :'0'} {fixedHours()}</div>
             </div>
           </div>
 
@@ -133,7 +147,7 @@ const RecommendedCities = () => {
               }</div>
               <div>{cities.length!==0?
               Math.round(((cities.data[3].distance/120) * 100)) / 100
-              :'0'} hour drive</div>
+              :'0'} {fixedHours()}</div>
             </div>
           </div>
         </div>
@@ -152,7 +166,7 @@ const RecommendedCities = () => {
               }</div>
               <div>{cities.length!==0?
               Math.round(((cities.data[4].distance/120) * 100)) / 100
-              :'0'} hour drive</div>
+              :'0'} {fixedHours()}</div>
             </div>
           </div>
 
@@ -170,7 +184,7 @@ const RecommendedCities = () => {
               }</div>
               <div>{cities.length!==0?
               Math.round(((cities.data[5].distance/120) * 100)) / 100
-              :'0'} hour drive</div>
+              :'0'} {fixedHours()}</div>
             </div>
           </div>
 
@@ -188,7 +202,7 @@ const RecommendedCities = () => {
               }</div>
               <div>{cities.length!==0?
               Math.round(((cities.data[6].distance/120) * 100)) / 100
-              :'0'} hour drive</div>
+              :'0'} {fixedHours()}</div>
             </div>
           </div>
 
@@ -206,7 +220,7 @@ const RecommendedCities = () => {
               }</div>
               <div>{cities.length!==0?
               Math.round(((cities.data[7].distance/120) * 100)) / 100
-              :'0'} hour drive</div>
+              :'0'} {fixedHours()}</div>
             </div>
           </div>
         </div>
