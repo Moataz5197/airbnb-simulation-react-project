@@ -1,11 +1,18 @@
 import {
     axiosInstance
 } from '../../axiosInstance';
+import { useSelector } from "react-redux";
 import { SET_PLACE } from '../types/hostPlacesType';
 
 export const getPlace = () => async (dispatch) => {
     try {
-        const res = await axiosInstance.get("hosting/")
+        const token = useSelector((state) => state.user.token);
+
+        const res = await axiosInstance.get("hosting/", {
+          headers: {
+            token: token,
+          },
+        });
         const response = res.data.place_ids
         let placeRes,placesData = []
         for (let index = 0; index < response.length; index++) {

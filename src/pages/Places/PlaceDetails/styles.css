@@ -30,7 +30,7 @@ hr {
 /* Title, subtitle and host image */
 .main {
   padding-left: 0;
-  margin-top: 50px;
+  margin-top: 50px i !important;
   color: rgb(34, 34, 34);
 }
 .placeInfo {

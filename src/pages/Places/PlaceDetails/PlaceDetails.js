@@ -55,19 +55,19 @@ export default function PlaceDetails() {
     try {
       // place data
       const response = await axiosInstance.get(
-        `http://localhost:4000/places/${location.state.id}`
+        `places/${location.state.id}`
       );
       setData(response.data);
 
       // host data
       const host = await axiosInstance.get(
-        `http://localhost:4000/users/${response.data.user_id}`
+        `users/${response.data.user_id}`
       );
       setHostData(host.data);
 
       // reservations data
       const reservations = await axiosInstance.get(
-        `http://localhost:4000/reservations/forplace/${response.data._id}`
+        `reservations/forplace/${response.data._id}`
       );
       handleDisabledDates(reservations.data);
     } catch (err) {
@@ -202,7 +202,7 @@ export default function PlaceDetails() {
 
             <div className="main container d-flex ">
               <div className="placeInfo container">
-                <div className="d-flex justify-content-between">
+                <div className="d-flex justify-content-between mt-3">
                   <span>
                     <h2>
                       {data.space_allowed.private_room
@@ -450,7 +450,7 @@ export default function PlaceDetails() {
                 </div>
               </div>
 
-              <div className="reservationCard container">
+              <div className="reservationCard container mt-3">
                 <div className="resCardHeader d-flex justify-content-between">
                   <div>
                     <span className="price">${data.price_per_night}</span>

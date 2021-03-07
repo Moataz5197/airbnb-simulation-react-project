@@ -9,13 +9,10 @@ export const citiesAxiosInstance = axios.create({
 });
 
 export const axiosInstance = axios.create({
-
-  baseURL: "http://localhost:4000/",
+  baseURL: "https://enigmatic-chamber-13691.herokuapp.com/",
   headers: {
-    "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjA0MjgwNTliMTBlOTcyYTYwYzQ5MmM4In0sImlhdCI6MTYxNTA4NzA0OSwiZXhwIjoxNjE1MDg4MjQ5fQ.ZtVc19x8w9_HjNy03vJfgDxG_kjWPjthMv2m8fifuXE"
-
+    token: "",
   },
- 
 });
 
 // Add a request interceptor
@@ -47,16 +44,15 @@ citiesAxiosInstance.interceptors.response.use(function (response) {
 
 
   export const userAxiosInstance = axios.create({
-  baseURL: "http://localhost:4000/users",
+    baseURL: "https://enigmatic-chamber-13691.herokuapp.com/users",
 
-  headers: {
-    "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjA0MjgwNTliMTBlOTcyYTYwYzQ5MmM4In0sImlhdCI6MTYxNDk4NTg0NywiZXhwIjoxNjE0OTg5NDQ3fQ.QkCBf5UY1Z8t5juIbSRohv8gUBVRc2ok8uSxe86L6hY"
+    headers: {
+      token:
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjA0MjgwNTliMTBlOTcyYTYwYzQ5MmM4In0sImlhdCI6MTYxNDk4NTg0NywiZXhwIjoxNjE0OTg5NDQ3fQ.QkCBf5UY1Z8t5juIbSRohv8gUBVRc2ok8uSxe86L6hY",
+    },
 
-  },
-  
-  params: {
-  },
-});
+    params: {},
+  });
 
 // Add a request interceptor
 axiosInstance.interceptors.request.use(
@@ -111,8 +107,6 @@ userAxiosInstance.interceptors.response.use(function (response) {
   });
 
 export const PlacesAxiosInstance = axios.create({
-  baseURL:"http://localhost:4000/places",
-  headers:{
-    
-  }
-})
+  baseURL: "https://enigmatic-chamber-13691.herokuapp.com/places",
+  headers: {},
+});
