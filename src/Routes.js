@@ -1,4 +1,10 @@
 
+import React, { Suspense, useState } from "react";
+import { Route, Switch } from "react-router-dom";
+import GuardedRoute from "./GuardedRoutes";
+import DashBoard from "./pages/Host/PlaceHosting/DashBoard/DashBoard";
+
+
 
 import DashBoard from "./pages/Host/PlaceHosting/DashBoard/DashBoard";
 
@@ -40,6 +46,7 @@ export default function Routes() {
       <Switch>
         {/* Main Routes*/}
         <Route path="/" exact component={Home} />
+
         <Route path="/placelisting" exact component={PlaceListing}/>
         <Route path="/placedetails" exact component={PlaceDetails} />
         <Route path="/SignUp" exact component={SignUp}/>
