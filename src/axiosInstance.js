@@ -3,7 +3,7 @@ import axios from "axios";
 export const axiosInstance = axios.create({
   baseURL: "http://localhost:4000/",
   headers: {
-    "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjA0MjgwNTliMTBlOTcyYTYwYzQ5MmM4In0sImlhdCI6MTYxNDk4NTg0NywiZXhwIjoxNjE0OTg5NDQ3fQ.QkCBf5UY1Z8t5juIbSRohv8gUBVRc2ok8uSxe86L6hY"
+    "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjA0MjgwNTliMTBlOTcyYTYwYzQ5MmM4In0sImlhdCI6MTYxNTA4NzA0OSwiZXhwIjoxNjE1MDg4MjQ5fQ.ZtVc19x8w9_HjNy03vJfgDxG_kjWPjthMv2m8fifuXE"
   },
 });
 

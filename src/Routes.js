@@ -1,6 +1,5 @@
 import React, { Suspense, useState } from "react";
 import { Route, Switch } from "react-router-dom";
-import Product from "./components/productList/product";
 import GuardedRoute from "./GuardedRoutes";
 import DashBoard from "./pages/Host/PlaceHosting/DashBoard/DashBoard";
 
@@ -31,7 +30,6 @@ export default function Routes() {
     <Suspense fallback="loading...">
       <Switch>
 
-        <Route path="/product" exact component={Product} />
         <Route path="/placelisting" exact component={PlaceListing}/>
         {/* <Route path="/" exact component={Home} /> */}
         <Route path="/placedetails" exact component={PlaceDetails} />

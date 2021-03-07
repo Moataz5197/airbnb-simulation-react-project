@@ -3,6 +3,7 @@ import "./Form.css";
 import { Col, Row, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import { useSelector } from "react-redux";
 import {axiosInstance} from "../../../../axiosInstance"
+import axios from "axios";
 
 export default function HostingForm(props){
     const places = Object.values(useSelector(state => state.Places))
@@ -19,7 +20,7 @@ export default function HostingForm(props){
             private_room: false,
             shared_room: false
         },
-        num_guests: 0,
+        num_guests: "",
         total_bedrooms: 0,
         total_bathrooms: 0,
         num_beds: 0,
@@ -30,7 +31,7 @@ export default function HostingForm(props){
             city: "",
             street_address: "",
             "postal/zip": "",
-            coordinates: [114.17158, 22.30469]
+            coordinates: []
         },
         amenities: {
             essential: {
@@ -111,6 +112,27 @@ export default function HostingForm(props){
                 ...formData,
                 [e.target.name]:e.target.value
             })
+        }
+    }
+
+    const handleLoc=async()=>{
+        const params = {
+            access_key: '7f0e9e4c7f599d91d668d99db7120d94',
+            query: `${formData.address.street_address} ${formData.address.city} ${formData.address.country}`
+          }
+        try{
+        let loc = await axios.get(`http://api.positionstack.com/v1/forward`,{params})
+        setFormData({
+            ...formData,
+            address:{
+                ...formData["address"],
+                coordinates:[loc.data.data[0].latitude,loc.data.data[0].longitude]
+            }
+        })
+        props.match.params.id?editPlace():addPlace()
+        }
+        catch(e){
+            console.log(e);
         }
     }
 
@@ -437,11 +459,7 @@ export default function HostingForm(props){
                 </Label>
             </FormGroup>
             <br/>
-            {
-                props.match.params.id?
-                <Button onClick={editPlace}>Edit your place</Button>:
-                <Button onClick={addPlace}>Host your place</Button>
-            }
+                <Button onClick={handleLoc}> {props.match.params.id?"Edit your place":"Host your place"}</Button>
             </Form>
         </div>
         </div>
