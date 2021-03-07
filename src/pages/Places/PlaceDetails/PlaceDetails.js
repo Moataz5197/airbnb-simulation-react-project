@@ -1,7 +1,7 @@
 import Title from "../../../components/placeDetails/titleComponent";
 import ImageGallery from "../../../components/placeDetails/imageGalleryComponent";
 import AmenitiesModal from "../../../components/placeDetails/amenitiesModal";
-import AirBnbNavBar from "../../../components/Nav/nav";
+import Map from "../../../components/map/map";
 
 import { Redirect } from "react-router-dom";
 import React, { useState, useEffect } from "react";
@@ -172,11 +172,8 @@ export default function PlaceDetails() {
   } else {
     return (
       <>
-        
-
         {data && hostData ? (
           <>
-
             <Title
               data={{
                 title: data.title,
@@ -453,10 +450,7 @@ export default function PlaceDetails() {
                     <span className="priceNight"> / night</span>
                   </div>
                   <div>
-                    <FontAwesomeIcon
-                      className="icon"
-                      icon={faStar}
-                    />
+                    <FontAwesomeIcon className="icon" icon={faStar} />
                     <span className="rating">4.95</span>
                     <span className="number">(19)</span>
                   </div>
@@ -595,6 +589,7 @@ export default function PlaceDetails() {
 
             <div className="reviews container">
               <hr />
+              <Map data={{ coordinates: { lat: 27.4025, lng: 33.6511 } }} />
             </div>
           </>
         ) : (
