@@ -1,5 +1,5 @@
 .titleMain{
-    margin-top: 80px;
+    margin-top: 120px;
     padding: 20px 0;
 }
 .titleMain h1 {
@@ -9,7 +9,7 @@
     padding-left: 0;
 }
 .icon {
-    color: rgb(255, 56, 92);
+    color: rgb(255, 56, 92) !important;
     display: inline;
     font-size: 12px;
 }

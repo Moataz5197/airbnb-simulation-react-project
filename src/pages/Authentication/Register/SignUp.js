@@ -1,28 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Redirect } from "react-router-dom";
 import * as yup from "yup";
 import "./SignUp.css";
 
+
 const schema = yup.object().shape({
-  phone: yup
+  phone_number: yup
     .number()
-    .typeError("please enter your phone!")
-    .min(11, " phone number must be 11 numbers")
+    .typeError("Please enter your phone!")
+    .min(11, " Phone number must be 11 numbers")
     .required(),
   country: yup.string().required(),
 });
 
 const Signup = () => {
+  
+  const [Register,setRegister] = useState(null);
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
 
   const onSubmit = (res) => {
-    console.log(res);
-    // API call
+      
+      setRegister({res});
+    
+
   };
 
+  if (Register) {
+    return <Redirect to={
+      {
+        pathname:'/Register',
+        state: Register
+      }
+    } ></Redirect>
+  }
   return (
     <div className="container-fluid">
       <div className="container">
@@ -86,7 +100,7 @@ const Signup = () => {
             <input
               type="number"
               id="form1"
-              name="phone"
+              name="phone_number"
               placeholder="Phone number"
               style={{ height: "60px" }}
               className="form-control form1"
@@ -98,7 +112,7 @@ const Signup = () => {
             data rates apply.
           </h6>
 
-          <h6 className="text-danger"> {errors.phone?.message}</h6>
+          <h6 className="text-danger"> {errors.phone_number?.message}</h6>
 
           <button
             type="submit"

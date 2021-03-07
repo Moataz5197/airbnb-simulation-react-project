@@ -1,16 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import "./Register.css";
+import { axiosInstance, userAxiosInstance } from "../../../axiosInstance";
+import { useLocation } from "react-router";
+import { Redirect } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { getAuthUser } from "../../../store/actions/profileActions";
+
 
 const schema = yup.object().shape({
-  Name: yup.string().required("please enter your name!"),
+  fname: yup.string().required(),
+  lname: yup.string().required("Please enter your name!"),
+
   birthday: yup
     .string()
     .matches(
       /^\d{2}\/\d{2}\/\d{4}$/,
-      "please enter your date of birth!"
+      "Please enter your date of birth!"
     )
     .required(),
   email: yup
@@ -19,35 +27,86 @@ const schema = yup.object().shape({
     // .typeError()
     .matches(
       /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/,
-      "please enter your email!"
+      "Please enter your email!"
     )
     .required(),
   password: yup
     .string()
-    .min(8, "password must be more than 8 characters")
-    .matches(/[a-zA-Z]/, "password must contain upper and lower cases")
+    .min(8, "Password must be more than 8 characters")
+    .matches(/[a-zA-Z]/, "Password must contain upper and lower cases")
     .required(),
 });
 
-const onSubmit = (res) => {
-  console.log(res);
-  // API call
-};
+
 
 const Register = () => {
+  const [currentPage,setCurrentPage] = useState({state:true,data:""});
+  const user = useSelector((state)=>state.user.profile);
+  const isAutheticated = useSelector((state)=>state.user.isAutheticated);
+  console.log("44",user);
+  const dispatch = useDispatch();
+  const location = useLocation();
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
-
+  const onSubmit = (res) => {
+    console.log(res);
+  
+    let data = {fname:res.fname,
+                lname:res.lname,
+                email:res.email,
+                password:res.password,
+                phone_number:"y",
+                profile_img:"x"
+              }
+              
+    userAxiosInstance.post("/signup",data)
+    .then((res)=>{
+  
+      let token = res.data.token;
+      
+      console.log(token);
+  
+      dispatch(getAuthUser(token));
+      
+      console.log("from reg is auth",isAutheticated);
+      if(isAutheticated){
+        setCurrentPage({
+          state:false,
+          data:{
+            pathname:'../../Profile/index.js',
+            state:{from:"register"}
+          }
+        });
+      }
+      
+      
+    })
+    .catch(console.error)
+  };
+  
+  
+  if(location.state === undefined){
+    return <Redirect to={
+      {
+        pathname:'/SignUp',
+      }
+    } ></Redirect>
+  }
   return (
-    <div className="container-fluid">
+    <>
+    {console.log(currentPage.state)}
+    {
+      
+    currentPage.state ?(
+      <div className="container-fluid">
       <div className="container">
         <form onSubmit={handleSubmit(onSubmit)}>
           <h3
             className="text-center font-weight-bold"
             style={{ paddingTop: "30px" }}
           >
-            finish signing up
+            Finish Signing Up
           </h3>
           <hr />
           <div className="form-outline ">
@@ -56,21 +115,24 @@ const Register = () => {
               placeholder="First name"
               className="form-control form1"
               ref={register}
-              name="Name"
+              name="fname"
             />
           </div>
+
+          {/* <h6 className="text-danger"> {errors.fname?.message}</h6> */}
+
 
           <div className="form-outline mb-4">
             <input
               type="text"
               placeholder="Last name"
               className="form-control form2"
-              name="lastName"
+              name="lname"
               ref={register}
             />
           </div>
 
-          <h6 className="text-danger"> {errors.Name?.message}</h6>
+          <h6 className="text-danger"> {errors.lname?.message}</h6>
 
           <h6>Make sure it matches the name on your government ID.</h6>
           <div className="form-outline mb-4">
@@ -162,6 +224,14 @@ const Register = () => {
         </form>
       </div>
     </div>
+
+    )
+    :(<Redirect to = {{
+        pathname:'../../Profile/index.js',
+        state:{from:"register"}
+      }}/>)} 
+    
+  </>
   );
 };
 

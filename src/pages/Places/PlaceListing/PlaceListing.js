@@ -1,76 +1,134 @@
 import Product from "../../../components/productList/product";
-import { Container, Row, Col } from 'reactstrap';
+import "./styles.css";
+import { Col } from 'reactstrap';
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getPlaces } from "../../../store/actions/placesActions";
+import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
-const PlaceListing = ()=>{
+const PlaceListing = () => {
+  
+  const listNumber = 10;
+  const currentPageNumber = useSelector((state)=>state.places.pageNumber);
+  const places = useSelector((state)=>state.places.places);
+  const totalPlaces = useSelector((state)=>state.places.totalPlaces);
+  const dispatch = useDispatch();
+  useEffect(() => {dispatch(getPlaces(0));}, []);
+  
+  const items = [];
+  for(let i = 0 ; i < listNumber ; i++){
+    let element = <Product currentPlace = {places[i]} key= {i} currentIndex = {i}/>;
+    items.push(element);}
 
-    const element = <Product/>;
-    const num = 15;
-    const items = [];
-    for(let i = 0 ; i < num ; i++){
-        items.push(element)
-    }
+  console.log(totalPlaces);
 
-    return(
-        <>
+  const pages = [];
+  for(let i = 0 ; i < Math.ceil(totalPlaces/listNumber) ;i++){
 
-                <section class="row container-fluid p-0 m-0">
-                    <Col md='7'>
-                    <div>
-                        <h2>Stays in selected map area</h2>
-                        <br/>
-                        <button type="button" className="btn btn-light border-secondary rounded-pill">Cancelation flexibility</button>
-                            {"\u00a0"}
-                        <button type="button" className="btn btn-light border-secondary rounded-pill">Type of places</button>
-                            {"\u00a0"}
-                        <button type="button" className="btn btn-light border-secondary rounded-pill">Price</button>
-                            {"\u00a0"}
-                        <button type="button" className="btn btn-light border-secondary rounded-pill">Instant Book</button>
-                            {"\u00a0"}
-                        <button type="button" className="btn btn-light border-secondary rounded-pill">More Filters</button>
+    
+  pages.push(<PaginationItem active={i === currentPageNumber} key={i}>
+    <PaginationLink  onClick = {()=>handlePageClick(i)}>
+      {i + 1}
+    </PaginationLink>
+</PaginationItem>)
 
-                    </div>
-                    <br/>
+  }
+  const handlePageClick = (i)=>{
+
+    console.log(i);
+    dispatch(getPlaces(i));
+    
+  }
+  const handleOnPrevious = ()=>{
+
+    let newpage = currentPageNumber-1;
+    dispatch(getPlaces(newpage));
+
+  }
+
+  const handleOnNext = ()=>{
+
+    let newpage = currentPageNumber+1;
+    dispatch(getPlaces(newpage));
+  }
+  
 
 
-                    <div>
-                        <p>Review COVID-19 travel restrictions before you book.<a href="#">Learn more</a></p>
-                    </div>
+  return (
+    <>
+      
+      <section className="row container-fluid p-0 m-0">
+        <Col md="7">
+          <div className="top">
+            <h2>Stays in selected map area</h2>
+            <br />
+            <button
+              type="button"
+              className="btn btn border-secondary rounded-pill button"
+            >
+              Cancelation flexibility
+            </button>
+            {"\u00a0"}
+            <button
+              type="button"
+              className="btn btn border-secondary rounded-pill button"
+            >
+              Type of places
+            </button>
+            {"\u00a0"}
+            <button
+              type="button"
+              className="btn btn border-secondary rounded-pill button"
+            >
+              Price
+            </button>
+            {"\u00a0"}
+            <button
+              type="button"
+              className="btn btn border-secondary rounded-pill button"
+            >
+              Instant Book
+            </button>
+            {"\u00a0"}
+            <button
+              type="button"
+              className="btn btn border-secondary rounded-pill button"
+            >
+              More Filters
+            </button>
+          </div>
+          <br/>
+          <div style={{ marginLeft: 20 }}>
+            <p>Enter dates and number of guests to see the total price per night.</p>
+            <hr/>
+            <p  className="p2" style={{fontSize:15 , fontWeight:350 , marginTop:30 , marginBottom:30}} >
+              Review COVID-19 travel restrictions before you book . <a href="#">Learn more</a>
+            </p>
+          </div>
+          {items}
+          <Pagination className="pagination">
 
-                    <hr/>
-                    {items}
-                    <nav aria-label="Page navigation example">
-                        <ul className="pagination justify-content-center">
-                            <li className="page-item disabled">
-                                <a className="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                    <span className="sr-only">Previous</span>
-                                </a>
-                            </li>
-                            <li className="page-item"><a className="page-link" href="#">1</a></li>
-                            <li className="page-item"><a className="page-link" href="#">2</a></li>
-                            <li className="page-item"><a className="page-link" href="#">3</a></li>
-                            <li className="page-item">
-                                <a className="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                    <span className="sr-only">Next</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
+            <PaginationItem disabled={currentPageNumber <= 0}>
+              <PaginationLink  previous onClick= {handleOnPrevious} />
+            </PaginationItem>
+          
+            {pages}
 
-                    </Col>
-                    <Col md='5'>
+            <PaginationItem disabled={currentPageNumber == pages.length - 1 }>
+              <PaginationLink next onClick= {handleOnNext} />
+            </PaginationItem>
 
-                        <div className="col-5 container-fluid bg-light p-0">
-                            <img className="sticky-top" src="map.PNG"/>
-                        </div>
-
-                    </Col>
-                    
-                </section>
-            
-        </>
-    );
-}
-
+          </Pagination>
+          
+        </Col>
+        <Col md="5">
+          <div className="col-5 container-fluid bg-light p-0">
+            <img className="sticky-top" src="map.PNG" />
+          </div>
+        </Col>
+      </section>
+    </>
+  );
+};
 export default PlaceListing;
+
