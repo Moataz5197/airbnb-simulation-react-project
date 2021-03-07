@@ -6,13 +6,14 @@ import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faStar } from "@fortawesome/free-solid-svg-icons";
 import { axiosInstance } from "../../axiosInstance";
+import { useSelector } from "react-redux";
 import "./confirmReservation.css";
 
 export default function ConfirmReservation() {
   const location = useLocation();
   const [checkout, setCheckout] = useState(false);
   const [modal, setModal] = useState(false);
-
+  const user = useSelector((state) => state.user.profile);
   const handleCheckout = (data) => {
     setCheckout(data);
   }
@@ -22,7 +23,7 @@ export default function ConfirmReservation() {
      const response = await axiosInstance.post(
         'http://localhost:4000/reservations/add/new',
         {
-          user_id: location.state.hostData._id, // needs to be replaced with the customer Id from the session tokken
+          user_id: user._id, 
           host_id: location.state.data.user_id,
           place_id: location.state.data._id,
           start_date: location.state.calendar.startDate,
