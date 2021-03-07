@@ -6,8 +6,10 @@ import {
 import Carousel from "./carousel";
 import Title from "../../components/placeDetails/titleComponent";
 import "./product.css";
+import {Link} from "react-router-dom"
 
 const Product = (props) => {
+  let id = "";
   let space_allowed = {};
   let placetype = {};
   let title = "";
@@ -22,6 +24,7 @@ const Product = (props) => {
   let bathrooms = 0;
   let beds = 0;
   if(props.currentPlace !== undefined){
+   id = props.currentPlace._id;
    space_allowed =  props.currentPlace.space_allowed;
    placetype = props.currentPlace.place_type;
    title =props.currentPlace.title;
@@ -41,6 +44,12 @@ const Product = (props) => {
   
   return (
     <>
+      <Link className='link'
+                    to={{
+                      pathname: "/placedetails",
+                      state: {id},
+                    }}
+      >
       <Row>
         <Col>
           <div className="cart">
@@ -83,6 +92,7 @@ const Product = (props) => {
           </div>
         </Col>
       </Row>
+      </Link>
     </>
   );
 };
