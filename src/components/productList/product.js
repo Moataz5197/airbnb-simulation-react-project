@@ -14,11 +14,25 @@ const Product = (props) => {
   let city = "";
   let images = {};
   let space_allowed_selection = "Entire Place";
+  let wifi = false;
+  let kitchen = false;
+  let washingMachine = false;
+  let guests = 0;
+  let bedrooms = 0;
+  let bathrooms = 0;
+  let beds = 0;
   if(props.currentPlace !== undefined){
    space_allowed =  props.currentPlace.space_allowed;
    placetype = props.currentPlace.place_type;
    title =props.currentPlace.title;
    city  = props.currentPlace.address.city;
+   wifi = props.currentPlace.amenities.essential.wifi;
+   kitchen = props.currentPlace.amenities.facilities.kitchen;
+   washingMachine = props.currentPlace.amenities.facilities.laundry;
+   guests = props.currentPlace.num_guests;
+   bedrooms = props.currentPlace.total_bedrooms;
+   bathrooms = props.currentPlace.total_bathrooms;
+   beds = props.currentPlace.num_beds;
    images = props.currentPlace.images;
   }
   if(space_allowed.private_room)space_allowed_selection = "Private Room";
@@ -59,14 +73,9 @@ const Product = (props) => {
                   />
                   <br />
                   <CardText>
-                    4 guests · 2 bedrooms · 4 beds · 1 bathroom <br />
-                    wifi . kitchen . washing machine
-                    <Title className="titleMain"
-                      data={{
-                        rating: 4.95,
-                        numOfRaters: 19,
-                      }}
-                    />
+                    {guests} guests · {bedrooms} bedrooms ·  {beds} beds · {bathrooms} bathroom <br />
+                    {wifi? "Wifi" : "No Wifi" } . {kitchen? "Kitchen" : "No Kitchen" } . {washingMachine? "Washing Machine" : "No Washing Machine" }
+                    
                   </CardText>
                 </div>
               </Col>

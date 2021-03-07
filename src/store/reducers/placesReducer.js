@@ -18,6 +18,14 @@ export default (
         places:[...action.payload.places]
         
       };
+      case TYPES.GET_SPEC_PLACES:
+      return {
+        ...state,
+        totalPlaces: action.payload.totalPlaces,
+        pageNumber : action.payload.pageNumber,
+        places:[...action.payload.places]
+        
+      };
     
     default:
       return state;
