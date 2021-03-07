@@ -361,3 +361,10 @@ hr {
   color: rgb(34, 34, 34);
   height: 800px;
 }
+
+.reviews #here-map {
+  margin-left: 150px;
+  margin-top: 50px;
+  width: 80% !important;
+  height: 500px !important;
+}
