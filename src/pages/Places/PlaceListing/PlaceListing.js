@@ -7,6 +7,7 @@ import { getPlaces } from "../../../store/actions/placesActions";
 import {getSpecPlaces} from "../../../store/actions/placesActions";
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import { useLocation } from "react-router";
+import Map from "../../../components/map/map";
 
 const PlaceListing = () => {
   const location = useLocation();
@@ -73,7 +74,7 @@ const PlaceListing = () => {
       <section className="row container-fluid p-0 m-0">
         <Col md="7">
           <div className="top">
-            <h2>Stays in selected map area</h2>
+            <h2>Stays in Nearby Map</h2>
             <br />
             <button
               type="button"
@@ -135,9 +136,12 @@ const PlaceListing = () => {
           
         </Col>
         <Col md="5">
-          <div className="col-5 container-fluid bg-light p-0">
-            <img className="sticky-top" src="map.PNG" />
+          <div className="topy">
+
+            <Map data={{ coordinates: { lat: 30.0444, lng: 31.2357 } }} />  
+
           </div>
+            
         </Col>
       </section>
     </>

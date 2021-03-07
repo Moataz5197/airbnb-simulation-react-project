@@ -1,17 +1,10 @@
 
-import React, { Suspense, useState } from "react";
-import { Route, Switch } from "react-router-dom";
-import GuardedRoute from "./GuardedRoutes";
 import DashBoard from "./pages/Host/PlaceHosting/DashBoard/DashBoard";
 
-
-
-import DashBoard from "./pages/Host/PlaceHosting/DashBoard/DashBoard";
 
 import React, { Suspense, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
-import Nav from "./components/Nav/nav";
 import GuardedRoute from "./GuardedRoutes";
 
 
