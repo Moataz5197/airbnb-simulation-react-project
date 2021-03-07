@@ -88,99 +88,100 @@ const Login = () => {
 
   return (
     <>
-      {success?(<Redirect to = '/'/>)
-      :(
-        <div>
-        <div className="container-fluid">
-          <div className="container">
-            <h3 className="text-center font-weight-bold ">Log In</h3>
-            <hr />
-            <form onSubmit={handleSubmit(onSubmit)} id="myform">
-              
-            <div className="form-outline mb-4 form-floating">
-            <input
-              type="email"
-              placeholder="Email"
-              className="form-control form3"
-              id="email"
-              name="email"
-              ref={register}
-            />
-          </div>
-          <h6 className="text-danger"> {errors.email?.message}</h6>
+      {success ? (
+        <Redirect to="/" />
+      ) : (
+        <div className="loginContainer">
+          <div className="container-fluid">
+            <div className="container">
+              <h3 className="text-center font-weight-bold ">Log In</h3>
+              <hr />
+              <form onSubmit={handleSubmit(onSubmit)} id="myform">
+                <div className="form-outline mb-4 form-floating">
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    className="form-control form3"
+                    id="email"
+                    name="email"
+                    ref={register}
+                  />
+                </div>
+                <h6 className="text-danger"> {errors.email?.message}</h6>
 
-          <h6>We'll email you trip confirmations and receipts.</h6>
-          <div className="form-outline mb-4">
-            <input
-              type="password"
-              id="form3"
-              name="password"
-              placeholder="Password"
-              className="form-control form3"
-              title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
-              ref={register}
-            />
-          </div>
-          <h6 className="text-danger"> {errors.password?.message}</h6>
-              <button
-                type="submit"
-                className="btn btn-primary mb-4 btn-block"
-                id="continue"
-              >
-                Continue
-              </button>
-            </form>
+                <h6>We&rsquo;ll email you trip confirmations and receipts.</h6>
+                <div className="form-outline mb-4">
+                  <input
+                    type="password"
+                    id="form3"
+                    name="password"
+                    placeholder="Password"
+                    className="form-control form3"
+                    title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                    ref={register}
+                  />
+                </div>
+                <h6 className="text-danger"> {errors.password?.message}</h6>
+                <button
+                  type="submit"
+                  className="btn btn-primary mb-4 btn-block"
+                  id="continue"
+                >
+                  Continue
+                </button>
+              </form>
 
-            <p className="text-center text-muted" id="or">
-              or
-            </p>
+              <p className="text-center text-muted" id="or">
+                or
+              </p>
 
-            <div>
-              <button className="btn btn-outline-dark social">
-                <i
-                  className="far fa-envelope"
-                  style={{ color: "black", fontSize: "20px", float: "left" }}
-                />
-                Continue with email
-              </button>
+              <div>
+                <button className="btn btn-outline-dark social">
+                  <i
+                    className="far fa-envelope"
+                    style={{ color: "black", fontSize: "20px", float: "left" }}
+                  />
+                  Continue with email
+                </button>
 
-              <button className="btn btn-outline-dark social">
-                <i
-                  className="fab fa-facebook"
-                  style={{ color: "#3b5998", fontSize: "20px", float: "left" }}
-                ></i>
-                Continue with facebook
-              </button>
+                <button className="btn btn-outline-dark social">
+                  <i
+                    className="fab fa-facebook"
+                    style={{
+                      color: "#3b5998",
+                      fontSize: "20px",
+                      float: "left",
+                    }}
+                  ></i>
+                  Continue with facebook
+                </button>
 
-              <button className="btn btn-outline-dark social">
-                <i
-                  className="fa fa-google"
-                  style={{ color: "black", fontSize: "20px", float: "left" }}
-                />
-                Continue with google
-              </button>
+                <button className="btn btn-outline-dark social">
+                  <i
+                    className="fa fa-google"
+                    style={{ color: "black", fontSize: "20px", float: "left" }}
+                  />
+                  Continue with google
+                </button>
 
-              <button className="btn btn-outline-dark social">
-                <i
-                  className="fab fa-apple"
-                  style={{
-                    color: "rgb(61, 61, 61)",
-                    fontSize: "20px",
-                    float: "left",
-                  }}
-                />
-                Continue with apple
-              </button>
+                <button className="btn btn-outline-dark social">
+                  <i
+                    className="fab fa-apple"
+                    style={{
+                      color: "rgb(61, 61, 61)",
+                      fontSize: "20px",
+                      float: "left",
+                    }}
+                  />
+                  Continue with apple
+                </button>
+              </div>
+              <br />
             </div>
-            <br />
-            
+            <hr />
           </div>
-          <hr />
         </div>
-      </div>
-
       )}
-      
     </>
   );
 };
