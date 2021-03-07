@@ -59,31 +59,38 @@ const Register = () => {
                 phone_number:"y",
                 profile_img:"x"
               }
-              
+              let token ;
+   try{
+     
     userAxiosInstance.post("/signup",data)
     .then((res)=>{
   
-      let token = res.data.token;
+      token = res.data.token;
       
       console.log(token);
-  
+      
       dispatch(getAuthUser(token));
       
-      console.log("from reg is auth",isAutheticated);
+      
+      
+      
+    })
+    .catch(console.error)
+   }
+   catch(e){
+     console.log(e);
+   }
+   console.log("from reg is auth",isAutheticated);
       if(isAutheticated){
         setCurrentPage({
           state:false,
           data:{
             pathname:'../../Profile/index.js',
-            state:{from:"register"}
+            state:{from:"register" ,toekn:token}
           }
         });
-      }
-      
-      
-    })
-    .catch(console.error)
-  };
+    }
+};
   
   
   if(location.state === undefined){

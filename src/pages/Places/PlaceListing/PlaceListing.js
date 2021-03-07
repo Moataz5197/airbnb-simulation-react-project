@@ -4,24 +4,37 @@ import { Col } from 'reactstrap';
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getPlaces } from "../../../store/actions/placesActions";
+import {getSpecPlaces} from "../../../store/actions/placesActions";
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+import { useLocation } from "react-router";
 
 const PlaceListing = () => {
-  
+  const location = useLocation();
   const listNumber = 10;
   const currentPageNumber = useSelector((state)=>state.places.pageNumber);
   const places = useSelector((state)=>state.places.places);
   const totalPlaces = useSelector((state)=>state.places.totalPlaces);
   const dispatch = useDispatch();
-  useEffect(() => {dispatch(getPlaces(0));}, []);
+  useEffect(() => {
+    
+    if (!location.state.searchQuery){dispatch(getPlaces(0));}
+    else{
+      console.log(location.state);
+      const city =location.state.searchQuery;
+      console.log(city);
+      dispatch(getSpecPlaces(0,city));
+      console.log(places.length);
+    }
+  
+  }, []);
   
   const items = [];
-  for(let i = 0 ; i < listNumber ; i++){
+  for(let i = 0 ; i < places.length ; i++){
     let element = <Product currentPlace = {places[i]} key= {i} currentIndex = {i}/>;
     items.push(element);}
 
   console.log(totalPlaces);
-
+  console.log(location.state);
   const pages = [];
   for(let i = 0 ; i < Math.ceil(totalPlaces/listNumber) ;i++){
 

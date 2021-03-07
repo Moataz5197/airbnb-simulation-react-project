@@ -63,12 +63,6 @@ const Login = () => {
         console.log(res);
         let token = res.data.token;
         dispatch(getAuthUser(token));
-        setTimeout(()=>{},200);
-
-        
-        
-
-
 
 
       })
