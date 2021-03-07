@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from "react-redux";
 import {
   Collapse,
   Navbar,
@@ -24,6 +25,7 @@ import profileIcon from "./media/profile-picture.png"
 
 const AirBnbNavBar = ()=>{
 
+    const store = useSelector((state) => state.user);
     const [isOpen, setIsOpen] = useState(false);
     const [isCollapsed,setisCollapsed] = useState(false);
     const [searchQuery, setSearchQuery] = useState(null);
@@ -94,12 +96,24 @@ const AirBnbNavBar = ()=>{
                   </div>
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <Link className="dropdownLink" to="/SignUp">
-                    <DropdownItem>Sign up</DropdownItem>
-                  </Link>
-                  <Link className="dropdownLink" to="/login">
-                    <DropdownItem>Log in</DropdownItem>
-                  </Link>
+                  {!store.isAutheticated ? (
+                    <Link className="dropdownLink" to="/SignUp">
+                      <DropdownItem>Sign up</DropdownItem>
+                    </Link>
+                  ) : (
+                    ""
+                  )}
+
+                  {!store.isAutheticated ? (
+                    <Link className="dropdownLink" to="/login">
+                      <DropdownItem>Log in</DropdownItem>
+                    </Link>
+                  ) : (
+                    <Link className="dropdownLink" to="/profile">
+                      <DropdownItem>Profile</DropdownItem>
+                    </Link>
+                  )}
+
                   <Link className="dropdownLink" to="/">
                     <DropdownItem>Home</DropdownItem>
                   </Link>

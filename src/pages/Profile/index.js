@@ -3,30 +3,24 @@ import "./styles.css";
 import { userAxiosInstance } from "../../axiosInstance";
 import React, { useEffect, useState } from "react";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Input } from "reactstrap";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
   const [modal, setModal] = useState(false);
-  const [obj, setObj] = useState({
-    // _id: "5ff7973a24333c2300f38da8",
-    // fname: "omar",
-    // lname: "abdelaziz",
-    // email: "omar96_96@hotmail.com",
-    // password: "123456",
-    // phone_number: "01091033447",
-    // profile_img: "",
-  });
-
+  const [obj, setObj] = useState({});
+  const user = useSelector((state)=> state.user.profile);
   useEffect(() => {
     // userAxiosInstance.get("/me")
-    userAxiosInstance.get("/602d5964fa1345197c1a7f70")
-    .then(function(response){
-      // console.log(response)
-      setObj(response.data)
-      setFormData(response.data);
-    })
-    .catch(function(err){
-      console.log(err);
-    })
+    userAxiosInstance
+      .get(user._id)
+      .then(function (response) {
+        // console.log(response)
+        setObj(response.data);
+        setFormData(response.data);
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
   }, []);
 
   const setDB = () => {
@@ -95,7 +89,7 @@ const Profile = () => {
 
   return (
     <>
-      <Container>
+      <Container style={{marginTop: '120px'}}>
         <h1 style={{ color: "#565358" }}>Personal info</h1>
         <br />
         <br />
