@@ -18,3 +18,25 @@ export const getPlaces =  (i) => async (dispatch) => {
     console.log(e);
   }
 };
+
+export const getSpecPlaces = (pageNumber , city) => async (dispatch) => {
+
+
+  try{
+
+    let limit = 10;
+    let skip = 10*pageNumber;
+    const result = await PlacesAxiosInstance.get(`/?limit=${limit}?skip=${skip}?city=${city}`);
+    const {places} = result.data;
+    const {totalPlaces} = result.data;
+    console.log(places,totalPlaces,pageNumber)
+    dispatch({
+            type : TYPES.GET_SPEC_PLACES,
+            payload : {places,totalPlaces,pageNumber}
+          });
+
+  }
+  catch(e){
+    console.log(e);
+  }
+}

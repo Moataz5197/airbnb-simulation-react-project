@@ -1,7 +1,7 @@
 import Title from "../../../components/placeDetails/titleComponent";
 import ImageGallery from "../../../components/placeDetails/imageGalleryComponent";
 import AmenitiesModal from "../../../components/placeDetails/amenitiesModal";
-import AirBnbNavBar from "../../../components/Nav/nav";
+import Map from "../../../components/map/map";
 
 import { Redirect } from "react-router-dom";
 import React, { useState, useEffect } from "react";
@@ -21,6 +21,7 @@ import {
 
 import { useLocation } from "react-router-dom";
 import { axiosInstance } from "../../../axiosInstance";
+import { useSelector } from "react-redux";
 
 import homePng from "./media/home.png";
 import cleanPng from "./media/clean.png";
@@ -42,6 +43,8 @@ export default function PlaceDetails() {
 
   const [data, setData] = useState(null);
   const [hostData, setHostData] = useState(null);
+  const store = useSelector((state) => state.user);
+  const [loginAlertModal, setLoginAlertModal] = useState(false);
 
   // on componentDidMount get place data and host data
   useEffect(() => {
@@ -55,7 +58,7 @@ export default function PlaceDetails() {
         `http://localhost:4000/places/${location.state.id}`
       );
       setData(response.data);
-      
+
       // host data
       const host = await axiosInstance.get(
         `http://localhost:4000/users/${response.data.user_id}`
@@ -67,7 +70,6 @@ export default function PlaceDetails() {
         `http://localhost:4000/reservations/forplace/${response.data._id}`
       );
       handleDisabledDates(reservations.data);
-      
     } catch (err) {
       console.log(err);
     }
@@ -82,8 +84,8 @@ export default function PlaceDetails() {
   const toggle = () => setModal(!modal);
   const today = new Date();
 
-  const handleDisabledDates = (resDataArr) =>{
-     if(resDataArr.length > 0){
+  const handleDisabledDates = (resDataArr) => {
+    if (resDataArr.length > 0) {
       let datesArray = [];
 
       resDataArr.map((res, index) => {
@@ -101,9 +103,8 @@ export default function PlaceDetails() {
       });
 
       setDisabledDates(datesArray);
-     }
-      
-  }
+    }
+  };
 
   // reservation receipt
   const [receipt, setReceipt] = useState({
@@ -149,34 +150,37 @@ export default function PlaceDetails() {
   const [redirect, setRedirect] = useState(false);
 
   const handleReserveButton = () => {
-    if (!from || !to) setModal(true);
-    else setRedirect(true);
+    if (!from || !to) 
+      setModal(true);
+    else if (redirect && !store.isAutheticated)
+      setLoginAlertModal(!loginAlertModal);
+    else
+      setRedirect(true);
+    
   };
 
-  if (redirect) {
-    return (
-      <Redirect
-        to={{
-          pathname: "/placedetails/confirm/reservation",
-          state: {
-            data,
-            hostData,
-            calendar: { startDate: from, endDate: to },
-            daysRange: resNumOfDays,
-            numOfGuests: guests,
-            receipt,
-          },
-        }}
-      />
-    );
+  if (redirect && store.isAutheticated) {
+      return (
+        <Redirect
+          to={{
+            pathname: "/placedetails/confirm/reservation",
+            state: {
+              data,
+              hostData,
+              calendar: { startDate: from, endDate: to },
+              daysRange: resNumOfDays,
+              numOfGuests: guests,
+              receipt,
+            },
+          }}
+        />
+      );
+    
   } else {
     return (
       <>
-        
-
         {data && hostData ? (
           <>
-
             <Title
               data={{
                 title: data.title,
@@ -453,10 +457,7 @@ export default function PlaceDetails() {
                     <span className="priceNight"> / night</span>
                   </div>
                   <div>
-                    <FontAwesomeIcon
-                      className="icon"
-                      icon={faStar}
-                    />
+                    <FontAwesomeIcon className="icon" icon={faStar} />
                     <span className="rating">4.95</span>
                     <span className="number">(19)</span>
                   </div>
@@ -595,6 +596,22 @@ export default function PlaceDetails() {
 
             <div className="reviews container">
               <hr />
+              <Map data={{ coordinates: { lat: 30.0444, lng: 31.2357 } }} />
+              <Modal
+                isOpen={loginAlertModal}
+                toggle={() => setLoginAlertModal(!loginAlertModal)}
+                centered
+                scrollable
+                size="lg"
+                contentClassName=""
+              >
+                <ModalHeader
+                  toggle={() => setLoginAlertModal(!modal)}
+                ></ModalHeader>
+                <ModalBody>
+                  <h4>Please log in first!</h4>
+                </ModalBody>
+              </Modal>
             </div>
           </>
         ) : (

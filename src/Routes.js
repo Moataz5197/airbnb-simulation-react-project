@@ -1,11 +1,9 @@
-
-
 import DashBoard from "./pages/Host/PlaceHosting/DashBoard/DashBoard";
+
 
 import React, { Suspense, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
-import Nav from "./components/Nav/nav";
 import GuardedRoute from "./GuardedRoutes";
 
 
@@ -40,6 +38,7 @@ export default function Routes() {
       <Switch>
         {/* Main Routes*/}
         <Route path="/" exact component={Home} />
+
         <Route path="/placelisting" exact component={PlaceListing}/>
         <Route path="/placedetails" exact component={PlaceDetails} />
         <Route path="/SignUp" exact component={SignUp}/>
@@ -62,11 +61,6 @@ export default function Routes() {
 
 
         <Route path="/placedetails/confirm/reservation" exact component={ConfirmReservation} />
-
-        {/* Testing Routes*/}
-
-        <Route path="/x" component={Nav} />
-
 
         {/* Error Routes*/}
         <Route path="*" component={Eror404} />

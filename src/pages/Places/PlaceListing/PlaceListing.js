@@ -4,24 +4,38 @@ import { Col } from 'reactstrap';
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getPlaces } from "../../../store/actions/placesActions";
+import {getSpecPlaces} from "../../../store/actions/placesActions";
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+import { useLocation } from "react-router";
+import Map from "../../../components/map/map";
 
 const PlaceListing = () => {
-  
+  const location = useLocation();
   const listNumber = 10;
   const currentPageNumber = useSelector((state)=>state.places.pageNumber);
   const places = useSelector((state)=>state.places.places);
   const totalPlaces = useSelector((state)=>state.places.totalPlaces);
   const dispatch = useDispatch();
-  useEffect(() => {dispatch(getPlaces(0));}, []);
+  useEffect(() => {
+    
+    if (!location.state.searchQuery){dispatch(getPlaces(0));}
+    else{
+      console.log(location.state);
+      const city =location.state.searchQuery;
+      console.log(city);
+      dispatch(getSpecPlaces(0,city));
+      console.log(places.length);
+    }
+  
+  }, []);
   
   const items = [];
-  for(let i = 0 ; i < listNumber ; i++){
+  for(let i = 0 ; i < places.length ; i++){
     let element = <Product currentPlace = {places[i]} key= {i} currentIndex = {i}/>;
     items.push(element);}
 
   console.log(totalPlaces);
-
+  console.log(location.state);
   const pages = [];
   for(let i = 0 ; i < Math.ceil(totalPlaces/listNumber) ;i++){
 
@@ -60,7 +74,7 @@ const PlaceListing = () => {
       <section className="row container-fluid p-0 m-0">
         <Col md="7">
           <div className="top">
-            <h2>Stays in selected map area</h2>
+            <h2>Stays in Nearby Map</h2>
             <br />
             <button
               type="button"
@@ -122,9 +136,12 @@ const PlaceListing = () => {
           
         </Col>
         <Col md="5">
-          <div className="col-5 container-fluid bg-light p-0">
-            <img className="sticky-top" src="map.PNG" />
+          <div className="topy">
+
+            <Map data={{ coordinates: { lat: 30.0444, lng: 31.2357 } }} />  
+
           </div>
+            
         </Col>
       </section>
     </>
