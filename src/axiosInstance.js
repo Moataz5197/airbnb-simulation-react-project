@@ -9,7 +9,7 @@ export const citiesAxiosInstance = axios.create({
 });
 
 export const axiosInstance = axios.create({
-  baseURL: "https://enigmatic-chamber-13691.herokuapp.com/",
+  baseURL: "http://enigmatic-chamber-13691.herokuapp.com/",
   headers: {
     token: "",
   },
@@ -44,7 +44,7 @@ citiesAxiosInstance.interceptors.response.use(function (response) {
 
 
   export const userAxiosInstance = axios.create({
-    baseURL: "https://enigmatic-chamber-13691.herokuapp.com/users",
+    baseURL: "http://enigmatic-chamber-13691.herokuapp.com/users",
 
     headers: {
       token:
@@ -107,6 +107,6 @@ userAxiosInstance.interceptors.response.use(function (response) {
   });
 
 export const PlacesAxiosInstance = axios.create({
-  baseURL: "https://enigmatic-chamber-13691.herokuapp.com/places",
+  baseURL: "http://enigmatic-chamber-13691.herokuapp.com/places",
   headers: {},
 });

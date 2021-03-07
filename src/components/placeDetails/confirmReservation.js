@@ -21,7 +21,7 @@ export default function ConfirmReservation() {
 
   const handleConfirmReservation = async () => {
      const response = await axiosInstance.post(
-        'http://localhost:4000/reservations/add/new',
+        'add/new',
         {
           user_id: user._id, 
           host_id: location.state.data.user_id,
