@@ -121,6 +121,13 @@ const AirBnbNavBar = ()=>{
                   <Link className="dropdownLink" to="/placeHosting/overview">
                     <DropdownItem>Host your place</DropdownItem>
                   </Link>
+                  {store.isAutheticated ? (
+                    <Link className="dropdownLink" to="/placeHosting/MyPlaces">
+                      <DropdownItem>My places</DropdownItem>
+                    </Link>
+                  ) : (
+                    ""
+                  )}
                 </DropdownMenu>
               </UncontrolledDropdown>
             </Nav>

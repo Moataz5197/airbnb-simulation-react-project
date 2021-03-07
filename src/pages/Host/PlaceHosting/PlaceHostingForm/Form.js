@@ -7,7 +7,8 @@ import axios from "axios";
 
 export default function HostingForm(props){
     const places = Object.values(useSelector(state => state.Places))
-
+    const token = useSelector((state) => state.user.token);
+    
     const[formData,setFormData]=React.useState({
         place_type: {
             apartment: false,
@@ -137,9 +138,14 @@ export default function HostingForm(props){
     }
 
     const addPlace=()=>{
-        axiosInstance.post("hosting/hostPlace",formData)
-        .then((response)=>console.log(response))
-        .catch((err)=>console.log(err))
+        axiosInstance
+          .post("hosting/hostPlace", formData, {
+            headers: {
+              token: token,
+            },
+          })
+          .then((response) => console.log(response))
+          .catch((err) => console.log(err));
     }
 
     const editPlace = ()=>{
