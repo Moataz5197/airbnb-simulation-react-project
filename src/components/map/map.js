@@ -8,7 +8,7 @@ export default class Map extends Component {
     this.map = null;
 
     this.state = {
-      apiKey: "ngqEI7v44qsmmmIQkVUw_qKR3QDxGxrenHRB7Fha11Y",
+      apiKey: "v3P-vxkKEL33-87rfQGBt5VKrf1skZbegKFJC9hi3-U",
       center: this.props.data.coordinates,
       zoom: 10,
       pixelRatio: window.devicePixelRatio || 1,

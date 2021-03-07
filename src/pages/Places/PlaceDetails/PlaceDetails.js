@@ -589,7 +589,7 @@ export default function PlaceDetails() {
 
             <div className="reviews container">
               <hr />
-              <Map data={{ coordinates: { lat: 27.4025, lng: 33.6511 } }} />
+              <Map data={{ coordinates: { lat: 30.0444, lng: 31.2357 } }} />
             </div>
           </>
         ) : (
